@@ -2,6 +2,7 @@
 pluginManagement {
     plugins {
         id "com.adarshr.test-logger"            version settings["app.version.gradleTestLogger"]
+        id "com.netflix.dgs.codegen"            version settings["app.version.graphqlDgsCodegen"]
         id "org.jetbrains.kotlin.kapt"          version settings["app.version.kotlin"]
         id "org.jetbrains.kotlin.jvm"           version settings["app.version.kotlin"]
         id "org.jetbrains.kotlin.plugin.spring" version settings["app.version.kotlin"]

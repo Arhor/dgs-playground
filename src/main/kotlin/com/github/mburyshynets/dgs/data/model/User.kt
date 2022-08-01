@@ -8,6 +8,6 @@ import org.springframework.data.relational.core.mapping.Table
 @Immutable
 data class User(
     @Id
-    val id: Long,
+    val id: Long? = null,
     val username: String
 )
