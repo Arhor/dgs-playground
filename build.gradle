@@ -35,12 +35,12 @@ dependencies {
     kapt "org.springframework.boot:spring-boot-configuration-processor"
 
     runtimeOnly "org.postgresql:postgresql"
-
     developmentOnly "org.springframework.boot:spring-boot-devtools"
 
     implementation platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property('app.version.graphqlDgsBOM')}")
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
+    implementation "com.netflix.graphql.dgs:graphql-dgs-extended-scalars"
     implementation "org.jetbrains.kotlin:kotlin-reflect"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.flywaydb:flyway-core"

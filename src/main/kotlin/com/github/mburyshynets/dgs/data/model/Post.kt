@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table
 @Immutable
 data class Post(
     @Id
-    val id: Long,
+    val id: Long? = null,
     val userId: Long?,
     val content: String,
 )

@@ -1,20 +1,23 @@
-type Query {
-    user(username: String): User
+scalar Long
 
-    users: [User]
+type Query {
+    user(username: String): UserDto
+    users: [UserDto]
 }
 
 type Mutation {
-    createUser(username: String): User!
+    createUser(username: String): UserDto
+    createUserPost(userId: Long, content: String): PostDto
 }
 
-type User {
-    id: ID
+type UserDto {
+    id: Long
     username: String
+    posts: [PostDto]
 }
 
-type Post {
-    id: ID
-    userId: Int
+type PostDto {
+    id: Long
+    userId: Long
     content: String
 }

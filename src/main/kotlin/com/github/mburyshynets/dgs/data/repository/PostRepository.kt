@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface PostRepository : CrudRepository<Post, Long> {
 
-    fun findAllByUserId(id: Long): List<Post>
+    fun findAllByUserIdIn(userIds: Collection<Long>): List<Post>
 }
