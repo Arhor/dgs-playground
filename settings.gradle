@@ -1,0 +1,14 @@
+// @formatter:off
+pluginManagement {
+    plugins {
+        id "com.adarshr.test-logger"            version settings["app.version.gradleTestLogger"]
+        id "org.jetbrains.kotlin.kapt"          version settings["app.version.kotlin"]
+        id "org.jetbrains.kotlin.jvm"           version settings["app.version.kotlin"]
+        id "org.jetbrains.kotlin.plugin.spring" version settings["app.version.kotlin"]
+        id "org.springframework.boot"           version settings["app.version.springBoot"]
+        id "io.spring.dependency-management"    version settings["app.version.springDependencyManagement"]
+    }
+}
+// @formatter:on
+
+rootProject.name = "dgs-playground"

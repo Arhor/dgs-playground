@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  dgs-playground-db:
+    image: postgres:12
+    container_name: dgs-playground-db
+    ports:
+      - "5432:5432"
+    tmpfs:
+      - "/var/lib/postgresql/data"
+    env_file:
+      - ".env.dev"

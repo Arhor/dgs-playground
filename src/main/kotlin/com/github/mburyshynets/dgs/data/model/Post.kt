@@ -1,0 +1,14 @@
+package com.github.mburyshynets.dgs.data.model
+
+import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.Immutable
+import org.springframework.data.relational.core.mapping.Table
+
+@Table("posts")
+@Immutable
+data class Post(
+    @Id
+    val id: Long,
+    val userId: Long?,
+    val content: String,
+)
