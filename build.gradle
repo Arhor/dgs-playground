@@ -67,6 +67,9 @@ test {
 generateJava {
     language = "kotlin"
     packageName = "com.github.mburyshynets.dgs.graphql.generated"
+    typeMapping = [
+        "Settings" : "java.util.EnumSet<com.github.mburyshynets.dgs.data.Setting>",
+    ]
 }
 
 tasks.withType(JavaCompile) {

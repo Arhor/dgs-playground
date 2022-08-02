@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS "users"
 (
     "id"       BIGSERIAL     NOT NULL PRIMARY KEY,
-    "username" VARCHAR(1024) NOT NULL UNIQUE
+    "username" VARCHAR(1024) NOT NULL UNIQUE,
+    "settings" BIGINT        NULL
 ) WITH (OIDS = FALSE);
 
 CREATE TABLE IF NOT EXISTS "posts"

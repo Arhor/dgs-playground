@@ -7,7 +7,8 @@ import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
 
 fun User.toDto() = UserDto(
     id = id,
-    username = username
+    username = username,
+    settings = settings?.items,
 )
 
 fun Post.toDto() = PostDto(

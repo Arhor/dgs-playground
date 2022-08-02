@@ -2,3 +2,6 @@ spring:
   config:
     import:
       - optional:file:.env.dev[.properties]
+
+dgs:
+  reload: true

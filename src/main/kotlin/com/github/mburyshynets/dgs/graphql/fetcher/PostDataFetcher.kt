@@ -1,8 +1,9 @@
-package com.github.mburyshynets.dgs.graphql
+package com.github.mburyshynets.dgs.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
+import com.github.mburyshynets.dgs.graphql.loader.PostDataLoader
 import com.github.mburyshynets.dgs.service.PostService
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData

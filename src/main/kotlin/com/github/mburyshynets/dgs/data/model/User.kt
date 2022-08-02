@@ -1,5 +1,6 @@
 package com.github.mburyshynets.dgs.data.model
 
+import com.github.mburyshynets.dgs.data.Settings
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Immutable
 import org.springframework.data.relational.core.mapping.Table
@@ -9,5 +10,6 @@ import org.springframework.data.relational.core.mapping.Table
 data class User(
     @Id
     val id: Long? = null,
-    val username: String
+    val username: String,
+    val settings: Settings? = null,
 )
