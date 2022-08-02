@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.graphql
+package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.model.Post
 import com.github.mburyshynets.dgs.data.model.User

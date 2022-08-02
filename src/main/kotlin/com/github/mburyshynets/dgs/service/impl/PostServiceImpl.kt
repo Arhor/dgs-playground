@@ -3,7 +3,6 @@ package com.github.mburyshynets.dgs.service.impl
 import com.github.mburyshynets.dgs.data.model.Post
 import com.github.mburyshynets.dgs.data.repository.PostRepository
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
-import com.github.mburyshynets.dgs.graphql.toDto
 import com.github.mburyshynets.dgs.service.PostService
 import org.springframework.stereotype.Service
 

@@ -3,7 +3,6 @@ package com.github.mburyshynets.dgs.service.impl
 import com.github.mburyshynets.dgs.data.model.User
 import com.github.mburyshynets.dgs.data.repository.UserRepository
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
-import com.github.mburyshynets.dgs.graphql.toDto
 import com.github.mburyshynets.dgs.service.UserService
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException
 import org.springframework.stereotype.Service
