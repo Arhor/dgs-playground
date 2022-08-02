@@ -1,13 +1,13 @@
 scalar Long
 
 type Query {
-    user(username: String): UserDto
-    users: [UserDto]
+    user(username: String): UserDto!
+    users: [UserDto!]!
 }
 
 type Mutation {
-    createUser(username: String): UserDto
-    createUserPost(userId: Long, content: String): PostDto
+    createUser(username: String!): UserDto!
+    createPost(userId: Long!, content: String!): PostDto!
 }
 
 type UserDto {
