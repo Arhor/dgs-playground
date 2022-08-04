@@ -5,8 +5,10 @@ import com.github.mburyshynets.dgs.data.repository.PostRepository
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.service.PostService
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class PostServiceImpl(private val postRepository: PostRepository) : PostService {
 
     override fun createNewPost(userId: Long, content: String): PostDto {
@@ -18,6 +20,7 @@ class PostServiceImpl(private val postRepository: PostRepository) : PostService 
         ).toDto()
     }
 
+    @Transactional(readOnly = true)
     override fun getPostsByUserIds(keys: Set<Long>): Map<Long, List<PostDto>> {
         return postRepository
             .findAllByUserIdIn(keys)
