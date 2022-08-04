@@ -9,7 +9,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @DirtiesContext
 @Testcontainers(disabledWithoutDocker = true)
-interface WithDatabaseContainer {
+internal interface WithDatabaseContainer {
 
     companion object {
         @JvmStatic
