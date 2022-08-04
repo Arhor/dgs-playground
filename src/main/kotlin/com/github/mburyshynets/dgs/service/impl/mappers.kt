@@ -6,13 +6,13 @@ import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
 
 fun User.toDto() = UserDto(
-    id = id,
+    id = id!!,
     username = username,
     settings = settings?.items,
 )
 
 fun Post.toDto() = PostDto(
-    id = id,
+    id = id!!,
     userId = userId,
     content = content,
 )

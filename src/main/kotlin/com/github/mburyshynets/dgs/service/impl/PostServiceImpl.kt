@@ -2,6 +2,7 @@ package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.model.Post
 import com.github.mburyshynets.dgs.data.repository.PostRepository
+import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.service.PostService
 import org.springframework.stereotype.Service
@@ -11,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class PostServiceImpl(private val postRepository: PostRepository) : PostService {
 
-    override fun createNewPost(userId: Long, content: String): PostDto {
+    override fun createNewPost(request: CreatePostRequest): PostDto {
         return postRepository.save(
             Post(
-                userId = userId,
-                content = content
+                userId = request.userId,
+                content = request.content
             )
         ).toDto()
     }

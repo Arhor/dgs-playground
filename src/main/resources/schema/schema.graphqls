@@ -7,19 +7,29 @@ type Query {
 }
 
 type Mutation {
-    createUser(username: String, settings: Settings): UserDto
-    createPost(userId: Long, content: String): PostDto
+    createUser(request: CreateUserRequest!): UserDto
+    createPost(request: CreatePostRequest!): PostDto
+}
+
+input CreateUserRequest {
+    username: String!
+    settings: Settings
+}
+
+input CreatePostRequest {
+    userId: Long!
+    content: String!
 }
 
 type UserDto {
-    id: Long
-    username: String
+    id: Long!
+    username: String!
     settings: Settings
-    posts: [PostDto]
+    posts: [PostDto!]
 }
 
 type PostDto {
-    id: Long
+    id: Long!
     userId: Long
-    content: String
+    content: String!
 }

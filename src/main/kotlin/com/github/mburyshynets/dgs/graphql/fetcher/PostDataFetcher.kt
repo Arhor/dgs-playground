@@ -1,6 +1,7 @@
 package com.github.mburyshynets.dgs.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
+import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
 import com.github.mburyshynets.dgs.graphql.loader.PostDataLoader
@@ -24,7 +25,7 @@ class PostDataFetcher(private val postService: PostService) {
     }
 
     @DgsMutation
-    fun createPost(@InputArgument userId: Long, @InputArgument content: String): PostDto {
-        return postService.createNewPost(userId, content)
+    fun createPost(@InputArgument request: CreatePostRequest): PostDto {
+        return postService.createNewPost(request)
     }
 }
