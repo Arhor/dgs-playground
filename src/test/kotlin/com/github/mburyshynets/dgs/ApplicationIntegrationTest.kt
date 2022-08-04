@@ -33,7 +33,15 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
         // when
         val result = http.post("/graphql") {
             contentType = MediaType.APPLICATION_JSON
-            content = """{ "query": "${usersQuery()}" }"""
+            content = """
+                query {
+                    users {
+                        id
+                        username
+                        settings
+                    }
+                }
+            """.toGraphQL()
         }
 
         // then
@@ -57,7 +65,15 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
         // when
         val result = http.post("/graphql") {
             contentType = MediaType.APPLICATION_JSON
-            content = """{ "query": "${userQuery(user.username)}" }"""
+            content = """
+                query {
+                    user(username: \"${user.username}\") {
+                        id
+                        username
+                        settings
+                    }
+                }
+            """.toGraphQL()
         }
 
         // then
@@ -71,25 +87,13 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
         }
     }
 
-    private fun usersQuery(): String = """
-        query {
-            users {
-                id
-                username
-                settings
-            }
-        }
-    """.compact()
-
-    private fun userQuery(username: String): String = """
-        query {
-            user(username: \"$username\") {
-                id
-                username
-                settings
-            }
-        }
-    """.compact()
+    private fun String.toGraphQL(): String {
+        val compactQuery =
+            this.replace(LINE_BREAKS, "")
+                .replace(WHITESPACES, " ")
+                .trim()
+        return """{ "query": "$compactQuery" }"""
+    }
 
     private fun prepareUser() = userRepository.save(
         User(
@@ -107,7 +111,5 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
     companion object {
         private val LINE_BREAKS = Regex("[\r\n]")
         private val WHITESPACES = Regex("( )+")
-
-        fun String.compact(): String = replace(LINE_BREAKS, "").replace(WHITESPACES, " ").trim()
     }
 }
