@@ -9,6 +9,7 @@ type Query {
 type Mutation {
     createUser(request: CreateUserRequest!): UserDto
     createPost(request: CreatePostRequest!): PostDto
+    createPostExtension(request: CreatePostExtensionRequest!): PostExtensionDto
 }
 
 input CreateUserRequest {
@@ -19,6 +20,11 @@ input CreateUserRequest {
 input CreatePostRequest {
     userId: Long!
     content: String!
+}
+
+input CreatePostExtensionRequest {
+    postId: Long!
+    additionalContent: String!
 }
 
 type UserDto {
@@ -32,4 +38,15 @@ type PostDto {
     id: Long!
     userId: Long
     content: String!
+}
+
+type PostExtensionDto {
+    id: Long!
+    postId: Long
+    additionalContent: String!
+}
+
+# consider 'PostDto' as a type out of our control
+extend type PostDto {
+    postExtensions: [PostExtensionDto]
 }

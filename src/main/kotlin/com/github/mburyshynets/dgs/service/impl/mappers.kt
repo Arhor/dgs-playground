@@ -1,18 +1,26 @@
 package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.model.Post
+import com.github.mburyshynets.dgs.data.model.PostExtension
 import com.github.mburyshynets.dgs.data.model.User
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
+import com.github.mburyshynets.dgs.graphql.generated.types.PostExtensionDto
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
 
 fun User.toDto() = UserDto(
-    id = id!!,
-    username = username,
-    settings = settings?.items,
+    id = this.id!!,
+    username = this.username,
+    settings = this.settings?.items,
 )
 
 fun Post.toDto() = PostDto(
-    id = id!!,
-    userId = userId,
-    content = content,
+    id = this.id!!,
+    userId = this.userId,
+    content = this.content,
+)
+
+fun PostExtension.toDto() = PostExtensionDto(
+    id = this.id!!,
+    postId = this.postId,
+    additionalContent = this.additionalContent,
 )
