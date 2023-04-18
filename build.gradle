@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id "com.adarshr.test-logger"
     id "com.netflix.dgs.codegen"
@@ -38,7 +40,6 @@ dependencies {
     runtimeOnly "org.postgresql:postgresql"
     developmentOnly "org.springframework.boot:spring-boot-devtools"
 
-    implementation platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property('app.version.graphqlDgsBOM')}")
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
     implementation "com.netflix.graphql.dgs:graphql-dgs-extended-scalars"
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
@@ -58,6 +59,7 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.testcontainers:testcontainers-bom:${property("app.version.testcontainers")}"
+        mavenBom "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property("app.version.graphqlDgsBOM")}"
     }
 }
 
@@ -73,7 +75,7 @@ generateJava {
     ]
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.compilerArgs = [
         "-Xlint:unchecked",
         "-Xlint:deprecation",
@@ -82,7 +84,7 @@ tasks.withType(JavaCompile) {
     ]
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs = [
             "-Xjsr305=strict",

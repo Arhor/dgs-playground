@@ -34,7 +34,7 @@ internal class PostDataFetcherTest {
         val post = PostDto(id = 2, userId = user.id, content = "test-post")
 
         every { userService.getUserByUsername(any()) } returns user
-        every { postService.getPostsByUserIds(any()) } returns mapOf(user.id!! to listOf(post))
+        every { postService.getPostsByUserIds(any()) } returns mapOf(user.id to listOf(post))
 
         // when
         val result = dgsQueryExecutor.execute(
@@ -52,8 +52,8 @@ internal class PostDataFetcherTest {
         )
 
         // then
-        verify { userService.getUserByUsername(user.username!!) }
-        verify { postService.getPostsByUserIds(setOf(user.id!!)) }
+        verify { userService.getUserByUsername(user.username) }
+        verify { postService.getPostsByUserIds(setOf(user.id)) }
 
         assertThat(result.errors)
             .isEmpty()

@@ -1,6 +1,6 @@
-// @formatter:off
 pluginManagement {
     plugins {
+        // @formatter:off
         id "com.adarshr.test-logger"            version settings["app.version.gradleTestLogger"]
         id "com.netflix.dgs.codegen"            version settings["app.version.graphqlDgsCodegen"]
         id "org.jetbrains.kotlin.kapt"          version settings["app.version.kotlin"]
@@ -8,8 +8,8 @@ pluginManagement {
         id "org.jetbrains.kotlin.plugin.spring" version settings["app.version.kotlin"]
         id "org.springframework.boot"           version settings["app.version.springBoot"]
         id "io.spring.dependency-management"    version settings["app.version.springDependencyManagement"]
+        // @formatter:on
     }
 }
-// @formatter:on
 
 rootProject.name = "dgs-playground"
