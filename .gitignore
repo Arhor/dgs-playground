@@ -11,6 +11,8 @@ build/
 *.ipr
 out/
 
+node_modules/
+
 # Logs
 logs
 *.log
