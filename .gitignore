@@ -12,6 +12,7 @@ build/
 out/
 
 node_modules/
+dist/
 
 # Logs
 logs
