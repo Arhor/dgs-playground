@@ -10,7 +10,7 @@ object SettingsReadingConverter : Converter<Long, Settings> {
     override fun convert(source: Long): Settings = Settings(
         items = EnumSet.noneOf(Setting::class.java).apply {
             for (setting in Setting.values()) {
-                if ((source and (1L shl setting.ordinal)) != 0L) {
+                if ((source and (1L shl setting.index)) != 0L) {
                     add(setting)
                 }
             }
@@ -23,7 +23,7 @@ object SettingsWritingConverter : Converter<Settings, Long> {
     override fun convert(source: Settings): Long {
         var result = 0L
         for (setting in source.items) {
-            result = result or (1L shl setting.ordinal)
+            result = result or (1L shl setting.index)
         }
         return result
     }

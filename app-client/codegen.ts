@@ -11,6 +11,13 @@ const config: CodegenConfig = {
     generates: {
         'src/gql/': {
             preset: 'client',
+            config: {
+                strictScalars: true,
+                scalars: {
+                    'Long': 'number',
+                    'Settings': 'string[]',
+                }
+            }
         },
     },
 };
