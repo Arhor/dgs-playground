@@ -6,9 +6,11 @@ const val MAX_SETTING_INDEX = Long.SIZE_BITS - 1
 private val INDEX_RANGE = MIN_SETTING_INDEX..MAX_SETTING_INDEX
 
 enum class Setting(val index: Int) {
-    SETTING_1(index = 0),
-    SETTING_2(index = 1),
-    SETTING_3(index = 2),
+    // @formatter:off
+    AGE_OVER_18        (index = 0),
+    GORGEOUS_CAT_OWNER (index = 1),
+    STAR_WARS_LOVER    (index = 2),
+    // @formatter:on
     ;
 
     init {

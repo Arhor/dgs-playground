@@ -4,6 +4,7 @@ scalar Settings
 type Query {
     user(username: String): UserDto
     users: [UserDto!]!
+    availableUserSettings: Settings!
 }
 
 type Mutation {

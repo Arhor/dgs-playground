@@ -100,9 +100,9 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
             username = "test-user",
             settings = Settings(
                 items = EnumSet.of(
-                    Setting.SETTING_1,
-                    Setting.SETTING_2,
-                    Setting.SETTING_3,
+                    Setting.AGE_OVER_18,
+                    Setting.GORGEOUS_CAT_OWNER,
+                    Setting.STAR_WARS_LOVER,
                 )
             )
         )

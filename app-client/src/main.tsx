@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import App from '~/App';
 
 const client = new ApolloClient({
-    uri: '/api/graphql',
+    uri: '/graphql',
     cache: new InMemoryCache(),
 });
 

@@ -1,6 +1,5 @@
 package com.github.mburyshynets.dgs.service.impl
 
-import com.github.mburyshynets.dgs.data.Settings
 import com.github.mburyshynets.dgs.data.model.User
 import com.github.mburyshynets.dgs.data.repository.UserRepository
 import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
