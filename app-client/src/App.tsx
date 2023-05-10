@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+
 import { graphql } from '~/gql';
 
 const GET_ALL_USERS = graphql(`
@@ -16,23 +17,8 @@ const GET_ALL_USERS = graphql(`
     }
 `);
 
-const GET_USER_BY_USERNAME = graphql(`
-    query GetUserByUsername($username: String!) {
-        user(username: $username) {
-            id
-            username
-            settings
-            posts {
-                id
-                userId
-                content
-            }
-        }
-    }
-`);
-
 function App() {
-    const { loading, error, data } = useQuery(GET_USER_BY_USERNAME, { variables: { username: '' } });
+    const { loading, error, data } = useQuery(GET_ALL_USERS);
 
     if (loading) {
         return (
