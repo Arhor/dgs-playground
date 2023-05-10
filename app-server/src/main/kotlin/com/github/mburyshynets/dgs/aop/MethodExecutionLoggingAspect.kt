@@ -33,7 +33,8 @@ class MethodExecutionLoggingAspect {
         return result
     }
 
-    @Pointcut("execution(* $ROOT.web..*(..)) && (within($REST_CONTROLLER *) || within($DGS_COMPONENT *) || within($DGS_DATA_LOADER *))")
+    @Pointcut("execution(* $ROOT.web..*(..))" +
+        " && (within($REST_CONTROLLER *) || within($DGS_COMPONENT *) || within($DGS_DATA_LOADER *))")
     private fun webLayer() { /* no-op */ }
 
     @Pointcut("execution(* $ROOT.service..*(..))")
