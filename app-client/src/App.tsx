@@ -1,7 +1,8 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { graphql } from '~/gql';
 
-const GET_USERS = gql`
-    query GetUsers {
+const GET_ALL_USERS = graphql(`
+    query GetAllUsers {
         users {
             id
             username
@@ -13,27 +14,25 @@ const GET_USERS = gql`
             }
         }
     }
-`;
+`);
 
-type User = {
-    id: number,
-    username: string,
-    settings: string[],
-    posts: Post[],
-};
-
-type Post = {
-    id: number,
-    userId: number,
-    content: string,
-};
-
-type TData = {
-    users: User[]
-};
+const GET_USER_BY_USERNAME = graphql(`
+    query GetUserByUsername($username: String!) {
+        user(username: $username) {
+            id
+            username
+            settings
+            posts {
+                id
+                userId
+                content
+            }
+        }
+    }
+`);
 
 function App() {
-    const { loading, error, data } = useQuery<TData>(GET_USERS);
+    const { loading, error, data } = useQuery(GET_USER_BY_USERNAME, { variables: { username: '' } });
 
     if (loading) {
         return (
@@ -56,7 +55,7 @@ function App() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.users.map(({ id, username, settings }) => (
+                    {data.users.map(({id, username, settings}) => (
                         <tr key={id}>
                             <td>{id}</td>
                             <td>{username}</td>

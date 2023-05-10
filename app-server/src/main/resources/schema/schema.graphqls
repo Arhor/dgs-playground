@@ -3,7 +3,7 @@ scalar Settings
 
 type Query {
     user(username: String): UserDto
-    users: [UserDto]
+    users: [UserDto!]!
 }
 
 type Mutation {
