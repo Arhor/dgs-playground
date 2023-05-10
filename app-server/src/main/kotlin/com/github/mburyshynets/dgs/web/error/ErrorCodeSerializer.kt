@@ -1,9 +1,8 @@
-package com.github.arhor.simple.expense.tracker.web.error
+package com.github.mburyshynets.dgs.web.error
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
-import com.github.mburyshynets.dgs.web.error.ErrorCode
 
 /**
  * Serializes [ErrorCode] instance to the string prefixed with corresponding [ErrorCode.type],

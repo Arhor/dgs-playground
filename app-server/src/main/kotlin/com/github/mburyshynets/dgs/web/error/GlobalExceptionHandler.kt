@@ -1,6 +1,6 @@
 package com.github.mburyshynets.dgs.web.error
 
-import com.github.arhor.simple.expense.tracker.web.CurrentRequestContext
+import com.github.mburyshynets.dgs.web.CurrentRequestContext
 import org.slf4j.LoggerFactory
 import org.springframework.context.MessageSource
 import org.springframework.dao.DataAccessException

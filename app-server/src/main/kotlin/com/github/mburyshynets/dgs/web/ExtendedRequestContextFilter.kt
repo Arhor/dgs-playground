@@ -1,14 +1,13 @@
 package com.github.mburyshynets.dgs.web
 
-import com.github.arhor.simple.expense.tracker.web.CurrentRequestContext
 import org.slf4j.MDC
 import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter
 import org.springframework.stereotype.Component
 import java.util.Optional
 import java.util.UUID
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 
 @Component
 class ExtendedRequestContextFilter : OrderedRequestContextFilter() {

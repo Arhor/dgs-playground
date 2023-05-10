@@ -1,7 +1,6 @@
 package com.github.mburyshynets.dgs.web.error
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.github.arhor.simple.expense.tracker.web.error.ErrorCodeSerializer
 
 @JsonSerialize(using = ErrorCodeSerializer::class)
 enum class ErrorCode(

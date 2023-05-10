@@ -1,4 +1,4 @@
-package com.github.arhor.simple.expense.tracker.web
+package com.github.mburyshynets.dgs.web
 
 import org.slf4j.LoggerFactory
 import org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST
