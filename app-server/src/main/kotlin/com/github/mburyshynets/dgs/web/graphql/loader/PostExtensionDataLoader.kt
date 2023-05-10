@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.graphql.loader
+package com.github.mburyshynets.dgs.web.graphql.loader
 
 import com.github.mburyshynets.dgs.graphql.generated.types.PostExtensionDto
 import com.github.mburyshynets.dgs.service.PostExtensionService

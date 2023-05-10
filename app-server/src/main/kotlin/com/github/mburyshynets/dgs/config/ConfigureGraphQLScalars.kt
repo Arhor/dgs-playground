@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration(proxyBeanMethods = false)
 @ComponentScan(
     basePackages = [
-        "com.github.mburyshynets.dgs.graphql.scalar"
+        "com.github.mburyshynets.dgs.web.graphql.scalar"
     ]
 )
 class ConfigureGraphQLScalars

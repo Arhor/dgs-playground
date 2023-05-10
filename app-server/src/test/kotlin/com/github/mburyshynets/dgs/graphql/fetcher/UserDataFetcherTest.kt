@@ -3,6 +3,7 @@ package com.github.mburyshynets.dgs.graphql.fetcher
 import com.github.mburyshynets.dgs.data.Setting
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
 import com.github.mburyshynets.dgs.service.UserService
+import com.github.mburyshynets.dgs.web.graphql.fetcher.UserDataFetcher
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every

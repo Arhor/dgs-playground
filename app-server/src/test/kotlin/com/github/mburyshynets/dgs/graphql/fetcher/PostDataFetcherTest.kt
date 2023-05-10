@@ -2,9 +2,11 @@ package com.github.mburyshynets.dgs.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
-import com.github.mburyshynets.dgs.graphql.loader.PostDataLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.PostDataLoader
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
+import com.github.mburyshynets.dgs.web.graphql.fetcher.PostDataFetcher
+import com.github.mburyshynets.dgs.web.graphql.fetcher.UserDataFetcher
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every

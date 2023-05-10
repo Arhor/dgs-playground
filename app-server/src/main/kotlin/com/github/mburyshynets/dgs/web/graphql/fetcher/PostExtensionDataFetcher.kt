@@ -1,10 +1,10 @@
-package com.github.mburyshynets.dgs.graphql.fetcher
+package com.github.mburyshynets.dgs.web.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
 import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostExtensionRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.graphql.generated.types.PostExtensionDto
-import com.github.mburyshynets.dgs.graphql.loader.PostExtensionDataLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.PostExtensionDataLoader
 import com.github.mburyshynets.dgs.service.PostExtensionService
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData

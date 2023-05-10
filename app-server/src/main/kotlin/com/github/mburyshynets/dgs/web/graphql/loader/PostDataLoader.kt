@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.graphql.loader
+package com.github.mburyshynets.dgs.web.graphql.loader
 
 import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
 import com.github.mburyshynets.dgs.service.PostService
