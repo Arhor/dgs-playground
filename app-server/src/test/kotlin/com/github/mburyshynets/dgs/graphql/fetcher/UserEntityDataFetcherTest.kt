@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.graphql.fetcher
 
 import com.github.mburyshynets.dgs.data.Setting
-import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
+import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.UserService
 import com.github.mburyshynets.dgs.web.graphql.fetcher.UserDataFetcher
 import com.netflix.graphql.dgs.DgsQueryExecutor
@@ -16,7 +16,7 @@ import java.util.EnumSet
 
 @DgsTest
 @ContextConfiguration(classes = [UserDataFetcher::class])
-internal class UserDataFetcherTest {
+internal class UserEntityDataFetcherTest {
 
     @MockkBean
     private lateinit var userService: UserService
@@ -56,7 +56,7 @@ internal class UserDataFetcherTest {
     @Test
     fun `should return successful result containing list with single expected user`() {
         // given
-        val user = UserDto(
+        val user = User(
             id = 1,
             username = "test-user",
             settings = EnumSet.allOf(Setting::class.java),

@@ -2,7 +2,7 @@ package com.github.mburyshynets.dgs
 
 import com.github.mburyshynets.dgs.data.Setting
 import com.github.mburyshynets.dgs.data.Settings
-import com.github.mburyshynets.dgs.data.model.User
+import com.github.mburyshynets.dgs.data.model.UserEntity
 import com.github.mburyshynets.dgs.data.repository.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -96,7 +96,7 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
     }
 
     private fun prepareUser() = userRepository.save(
-        User(
+        UserEntity(
             username = "test-user",
             settings = Settings(
                 items = EnumSet.of(

@@ -4,11 +4,11 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Immutable
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("post_extensions")
+@Table("posts")
 @Immutable
-data class PostExtension(
+data class PostEntity(
     @Id
     val id: Long? = null,
-    val postId: Long?,
-    val additionalContent: String,
+    val userId: Long?,
+    val content: String,
 )

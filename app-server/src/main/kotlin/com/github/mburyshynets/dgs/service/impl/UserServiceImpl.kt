@@ -1,34 +1,35 @@
 package com.github.mburyshynets.dgs.service.impl
 
-import com.github.mburyshynets.dgs.data.model.User
 import com.github.mburyshynets.dgs.data.repository.UserRepository
 import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
+import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.UserService
+import com.github.mburyshynets.dgs.service.mapper.UserMapper
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class UserServiceImpl(private val userRepository: UserRepository) : UserService {
+class UserServiceImpl(
+    private val userRepository: UserRepository,
+    private val userMapper: UserMapper,
+) : UserService {
 
-    override fun createNewUser(request: CreateUserRequest): UserDto {
-
-        return request.toEntity()
+    override fun createNewUser(request: CreateUserRequest): User {
+        return userMapper.mapToEntity(request)
             .let { userRepository.save(it) }
-            .also { println(it) }
-            .toDto()
+            .let { userMapper.mapToDTO(it) }
     }
 
     @Transactional(readOnly = true)
-    override fun getUserByUsername(username: String): UserDto {
-        return userRepository.findByUsername(username)?.toDto()
+    override fun getUserByUsername(username: String): User {
+        return userRepository.findByUsername(username)?.let { userMapper.mapToDTO(it) }
             ?: throw DgsEntityNotFoundException()
     }
 
     @Transactional(readOnly = true)
-    override fun getAllUsers(): List<UserDto> {
-        return userRepository.findAll().map(User::toDto).toList()
+    override fun getAllUsers(): List<User> {
+        return userRepository.findAll().map(userMapper::mapToDTO).toList()
     }
 }

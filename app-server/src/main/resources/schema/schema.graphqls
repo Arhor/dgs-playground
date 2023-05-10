@@ -2,15 +2,15 @@ scalar Long
 scalar Settings
 
 type Query {
-    user(username: String): UserDto
-    users: [UserDto!]!
+    user(username: String): User
+    users: [User!]!
     availableUserSettings: Settings!
 }
 
 type Mutation {
-    createUser(request: CreateUserRequest!): UserDto
-    createPost(request: CreatePostRequest!): PostDto
-    createPostExtension(request: CreatePostExtensionRequest!): PostExtensionDto
+    createUser(request: CreateUserRequest!): User
+    createPost(request: CreatePostRequest!): Post
+    createDataExtension(request: CreateDataExtensionRequest!): DataExtension
 }
 
 input CreateUserRequest {
@@ -23,31 +23,38 @@ input CreatePostRequest {
     content: String!
 }
 
-input CreatePostExtensionRequest {
-    postId: Long!
-    additionalContent: String!
+input CreateDataExtensionRequest {
+    entityId: Long!
+    entityType: String!
+    propertyName: String!
+    propertyValue: String
 }
 
-type UserDto {
+type User {
     id: Long!
     username: String!
     settings: Settings
-    posts: [PostDto!]
+    posts: [Post!]
 }
 
-type PostDto {
+type Post {
     id: Long!
     userId: Long
     content: String!
 }
 
-type PostExtensionDto {
+type DataExtension {
     id: Long!
-    postId: Long
-    additionalContent: String!
+    entityId: Long!
+    entityType: String!
+    propertyName: String!
+    propertyValue: String
 }
 
-# consider 'PostDto' as a type out of our control
-extend type PostDto {
-    postExtensions: [PostExtensionDto]
+extend type User {
+    extensions: [DataExtension]
+}
+
+extend type Post {
+    extensions: [DataExtension]
 }

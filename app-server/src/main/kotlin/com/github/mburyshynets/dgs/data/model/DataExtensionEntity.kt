@@ -1,15 +1,16 @@
 package com.github.mburyshynets.dgs.data.model
 
-import com.github.mburyshynets.dgs.data.Settings
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Immutable
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("users")
+@Table("data_extensions")
 @Immutable
-data class User(
+data class DataExtensionEntity(
     @Id
     val id: Long? = null,
-    val username: String,
-    val settings: Settings? = null,
+    val entityId: Long,
+    val entityType: String,
+    val propertyName: String,
+    val propertyValue: String?,
 )

@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.types.PostDto
-import com.github.mburyshynets.dgs.graphql.generated.types.UserDto
-import com.github.mburyshynets.dgs.web.graphql.loader.PostDataLoader
+import com.github.mburyshynets.dgs.graphql.generated.types.Post
+import com.github.mburyshynets.dgs.graphql.generated.types.User
+import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
 import com.github.mburyshynets.dgs.web.graphql.fetcher.PostDataFetcher
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 
 @DgsTest
-@ContextConfiguration(classes = [UserDataFetcher::class, PostDataFetcher::class, PostDataLoader::class])
+@ContextConfiguration(classes = [UserDataFetcher::class, PostDataFetcher::class, PostsBatchLoader::class])
 internal class PostDataFetcherTest {
 
     @MockkBean
@@ -32,8 +32,8 @@ internal class PostDataFetcherTest {
     @Test
     fun `should return successful result containing empty list of user posts`() {
         // given
-        val user = UserDto(id = 1, username = "test-user")
-        val post = PostDto(id = 2, userId = user.id, content = "test-post")
+        val user = User(id = 1, username = "test-user")
+        val post = Post(id = 2, userId = user.id, content = "test-post")
 
         every { userService.getUserByUsername(any()) } returns user
         every { postService.getPostsByUserIds(any()) } returns mapOf(user.id to listOf(post))
