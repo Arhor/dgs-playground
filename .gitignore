@@ -13,7 +13,7 @@ out/
 
 node_modules/
 dist/
-
+app-client/src/gql/
 # Logs
 logs
 *.log
