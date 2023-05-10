@@ -13,18 +13,12 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class UserServiceImpl(private val userRepository: UserRepository) : UserService {
 
-    class Config {
-        var a: String = ""
-        var b: String = ""
-        var c: String = ""
-    }
-
     override fun createNewUser(request: CreateUserRequest): UserDto {
 
         return request.toEntity()
-                      .let { userRepository.save(it) }
-                      .also { println(it) }
-                      .toDto()
+            .let { userRepository.save(it) }
+            .also { println(it) }
+            .toDto()
     }
 
     @Transactional(readOnly = true)
