@@ -1,6 +1,6 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.types.DataExtension
+import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.DataExtensionLookupKey
@@ -65,7 +65,7 @@ internal class DataExtensionFetcherTest {
             println("CALLED: ${counter.incrementAndGet()} - ${firstArg<Any>()}")
 
             firstArg<Set<DataExtensionLookupKey>>().groupBy({ it }, {
-                DataExtension(
+                ExtraData(
                     id = UUID.randomUUID().toString(),
                     entityId = it.id,
                     entityType = it.type.name,

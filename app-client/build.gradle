@@ -26,12 +26,21 @@ idea {
     }
 }
 
-//def synchronizeModel = tasks.register("synchronizeModel", Sync) {
-//    dependsOn(":app-schema:build")
-//
-//    from "${project(":app-schema").buildDir}/generated/sources/js2ts"
-//    into "${projectDir}/src/generated"
-//}
+def synchronizeSchema = tasks.register("synchronizeSchema", NpmTask) {
+    dependsOn(npmInstall)
+
+    workingDir.fileValue(projectDir)
+
+    def schemaPath = "../app-server/src/main/resources/schema/"
+
+    inputs.dir(schemaPath)
+    inputs.file("codegen.ts")
+
+    outputs.dir("src/gql")
+    outputs.cacheIf { true }
+
+    args = ["run", "codegen", "--", "--schema-path=${schemaPath}"]
+}
 
 def updateBrowserList = tasks.register("updateBrowserList", NpxTask) {
     dependsOn(npmInstall)
@@ -43,7 +52,7 @@ def updateBrowserList = tasks.register("updateBrowserList", NpxTask) {
 }
 
 def test = tasks.register("test", NpmTask) {
-    dependsOn(npmInstall, updateBrowserList/*, synchronizeModel*/)
+    dependsOn(npmInstall, updateBrowserList, synchronizeSchema)
 
     group = "verification"
     workingDir.fileValue(projectDir)
@@ -52,24 +61,24 @@ def test = tasks.register("test", NpmTask) {
 }
 
 tasks.register("build", NpmTask) {
-    dependsOn(npmInstall, updateBrowserList/*, synchronizeModel*//*, test*/)
+    dependsOn(npmInstall, updateBrowserList, synchronizeSchema/*, test*/)
 
     group = "build"
     workingDir.fileValue(projectDir)
 
-//    inputs.dir("src")
-//    inputs.dir("node_modules")
-//    inputs.files(
-//        "index.html",
-//        "package.json",
-//        "package-lock.json",
-//        "tsconfig.json",
-//        "tsconfig.node.json",
-//        "vite.config.json",
-//    )
-//
-//    outputs.dir("dist")
-//    outputs.cacheIf { true }
+    inputs.dir("src")
+    inputs.dir("node_modules")
+    inputs.files(
+        "index.html",
+        "package.json",
+        "package-lock.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.json",
+    )
+
+    outputs.dir("dist")
+    outputs.cacheIf { true }
 
     args = ["run", "build"]
 }

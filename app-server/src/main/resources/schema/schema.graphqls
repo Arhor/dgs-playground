@@ -10,7 +10,7 @@ type Query {
 type Mutation {
     createUser(request: CreateUserRequest!): User
     createPost(request: CreatePostRequest!): Post
-    createDataExtension(request: CreateDataExtensionRequest!): ExtraData
+    createDataExtension(request: CreateExtraDataRequest!): ExtraData
 }
 
 input CreateUserRequest {
@@ -23,7 +23,7 @@ input CreatePostRequest {
     content: String!
 }
 
-input CreateDataExtensionRequest {
+input CreateExtraDataRequest {
     entityId: Long!
     entityType: EntityType!
     propertyName: String!

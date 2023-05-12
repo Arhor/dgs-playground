@@ -2,8 +2,8 @@ package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.model.ExtraDataEntity
 import com.github.mburyshynets.dgs.data.repository.ExtraDataRepository
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateDataExtensionRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.DataExtension
+import com.github.mburyshynets.dgs.graphql.generated.types.CreateExtraDataRequest
+import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.service.DataExtensionLookupKey
 import com.github.mburyshynets.dgs.service.DataExtensionService
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,7 @@ class DataExtensionServiceImpl @Autowired constructor(
 ) : DataExtensionService {
 
     @Transactional
-    override fun createDataExtension(request: CreateDataExtensionRequest): DataExtension {
+    override fun createDataExtension(request: CreateExtraDataRequest): ExtraData {
         val extraDataEntity = ExtraDataEntity(
             entityId = request.entityId,
             entityType = request.entityType.name,
@@ -24,7 +24,7 @@ class DataExtensionServiceImpl @Autowired constructor(
             propertyValue = request.propertyValue,
         )
         return extraDataRepository.save(extraDataEntity).let {
-            DataExtension(
+            ExtraData(
                 id = it.id!!.toString(),
                 entityId = it.entityId,
                 entityType = it.entityType,
@@ -36,15 +36,15 @@ class DataExtensionServiceImpl @Autowired constructor(
 
 
     @Transactional(readOnly = true)
-    override fun getDataExtensions(keys: Set<DataExtensionLookupKey>): Map<DataExtensionLookupKey, List<DataExtension>> {
+    override fun getDataExtensions(keys: Set<DataExtensionLookupKey>): Map<DataExtensionLookupKey, List<ExtraData>> {
 
 
-        val target = HashMap<DataExtensionLookupKey, List<DataExtension>>()
+        val target = HashMap<DataExtensionLookupKey, List<ExtraData>>()
 
         for (key in keys) {
             target[key] =
                 extraDataRepository.findAllEntityTypeAndByEntityId(key.type.name, key.id).map {
-                    DataExtension(
+                    ExtraData(
                         it.id!!.toString(),
                         it.entityId,
                         it.entityType,

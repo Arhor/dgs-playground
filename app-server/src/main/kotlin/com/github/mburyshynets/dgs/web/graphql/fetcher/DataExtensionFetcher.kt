@@ -1,8 +1,7 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateDataExtensionRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.DataExtension
+import com.github.mburyshynets.dgs.graphql.generated.types.CreateExtraDataRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.EntityType
 import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
@@ -21,7 +20,7 @@ import java.util.concurrent.CompletableFuture
 class DataExtensionFetcher(private val dataExtensionService: DataExtensionService) {
 
     @DgsMutation
-    fun createDataExtension(@InputArgument request: CreateDataExtensionRequest): DataExtension {
+    fun createDataExtension(@InputArgument request: CreateExtraDataRequest): ExtraData {
         return dataExtensionService.createDataExtension(request)
     }
 
