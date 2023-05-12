@@ -84,20 +84,20 @@ internal class DataExtensionFetcherTest {
                     users {
                         id
                         username
-                        extensions {
-                            ...extraData
+                        extraData {
+                            ...extraDataFields
                         }
                         posts {
                             id
                             content
-                            extensions {
-                                ...extraData
+                            extraData {
+                                ...extraDataFields
                             }
                         }
                     }
                 }
                 
-                fragment extraData on DataExtension {
+                fragment extraDataFields on ExtraData {
                     id
                     entityId
                     entityType

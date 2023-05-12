@@ -20,6 +20,6 @@ interface UserMapper {
     fun mapToEntity(request: CreateUserRequest): UserEntity
 
     @Mapping(target = "posts", ignore = true)
-    @Mapping(target = "extensions", ignore = true)
+    @Mapping(target = "extraData", ignore = true)
     fun mapToDTO(user: UserEntity): User
 }

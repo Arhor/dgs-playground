@@ -12,6 +12,6 @@ interface PostMapper {
     @Mapping(target = "id", ignore = true)
     fun mapToEntity(request: CreatePostRequest): PostEntity
 
-    @Mapping(target = "extensions", ignore = true)
+    @Mapping(target = "extraData", ignore = true)
     fun mapToDTO(user: PostEntity): Post
 }

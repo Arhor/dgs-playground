@@ -2,7 +2,7 @@ package com.github.mburyshynets.dgs.config
 
 import com.github.mburyshynets.dgs.data.SettingsReadingConverter
 import com.github.mburyshynets.dgs.data.SettingsWritingConverter
-import com.github.mburyshynets.dgs.data.model.DataExtensionEntity
+import com.github.mburyshynets.dgs.data.model.ExtraDataEntity
 import org.springframework.boot.autoconfigure.flyway.FlywayConfigurationCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -40,7 +40,7 @@ class ConfigureDatabase : AbstractJdbcConfiguration() {
     }
 
     @Bean
-    fun beforeDataExtensionEntityConvertCallback() = BeforeConvertCallback<DataExtensionEntity> {
+    fun beforeDataExtensionEntityConvertCallback() = BeforeConvertCallback<ExtraDataEntity> {
         if (it.id == null) {
             it.copy(id = UUID.randomUUID())
         } else {

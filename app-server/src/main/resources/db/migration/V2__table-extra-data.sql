@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "data_extensions"
+CREATE TABLE IF NOT EXISTS "extra_data"
 (
     "id"                BIGSERIAL        NOT NULL PRIMARY KEY,
     "entity_id"         BIGINT           NOT NULL,

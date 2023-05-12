@@ -4,6 +4,7 @@ import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
 import com.github.mburyshynets.dgs.graphql.generated.types.CreateDataExtensionRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.DataExtension
 import com.github.mburyshynets.dgs.graphql.generated.types.EntityType
+import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.DataExtensionLookupKey
@@ -16,8 +17,6 @@ import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.InputArgument
 import java.util.concurrent.CompletableFuture
 
-private typealias Extensions = List<DataExtension>
-
 @DgsComponent
 class DataExtensionFetcher(private val dataExtensionService: DataExtensionService) {
 
@@ -28,8 +27,8 @@ class DataExtensionFetcher(private val dataExtensionService: DataExtensionServic
 
     @DgsData(parentType = DgsConstants.USER.TYPE_NAME)
     @DgsData(parentType = DgsConstants.POST.TYPE_NAME)
-    fun extensions(@InputArgument names: List<String>, dfe: DgsDataFetchingEnvironment): CompletableFuture<Extensions> {
-        val loader = dfe.getDataLoader<DataExtensionLookupKey, Extensions>(DataExtensionBatchLoader::class.java)
+    fun extraData(@InputArgument names: List<String>, dfe: DgsDataFetchingEnvironment): CompletableFuture<List<ExtraData>> {
+        val loader = dfe.getDataLoader<DataExtensionLookupKey, List<ExtraData>>(DataExtensionBatchLoader::class.java)
         val source = dfe.getSource<Any>()
 
         val sourceTypeName = source.javaClass.simpleName

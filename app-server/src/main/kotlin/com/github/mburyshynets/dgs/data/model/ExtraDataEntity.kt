@@ -5,9 +5,9 @@ import org.springframework.data.annotation.Immutable
 import org.springframework.data.relational.core.mapping.Table
 import java.util.UUID
 
-@Table("data_extensions")
+@Table("extra_data")
 @Immutable
-data class DataExtensionEntity(
+data class ExtraDataEntity(
     @Id
     val id: UUID? = null,
     val entityId: Long,
