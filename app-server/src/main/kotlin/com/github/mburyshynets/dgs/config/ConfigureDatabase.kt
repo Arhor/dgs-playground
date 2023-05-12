@@ -40,7 +40,7 @@ class ConfigureDatabase : AbstractJdbcConfiguration() {
     }
 
     @Bean
-    fun beforeDataExtensionEntityConvertCallback() = BeforeConvertCallback<ExtraDataEntity> {
+    fun beforeExtraDataEntityConvertCallback() = BeforeConvertCallback<ExtraDataEntity> {
         if (it.id == null) {
             it.copy(id = UUID.randomUUID())
         } else {

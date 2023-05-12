@@ -10,7 +10,7 @@ type Query {
 type Mutation {
     createUser(request: CreateUserRequest!): User
     createPost(request: CreatePostRequest!): Post
-    createDataExtension(request: CreateExtraDataRequest!): ExtraData
+    createExtraData(request: CreateExtraDataRequest!): ExtraData
 }
 
 input CreateUserRequest {
@@ -57,9 +57,9 @@ enum EntityType {
 }
 
 extend type User {
-    extraData(names: [String!]! = []): [ExtraData]
+    extraData(names: [String!] = null): [ExtraData]
 }
 
 extend type Post {
-    extraData(names: [String!]! = []): [ExtraData]
+    extraData(names: [String!] = null): [ExtraData]
 }

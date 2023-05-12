@@ -3,11 +3,11 @@ package com.github.mburyshynets.dgs.web.graphql.fetcher
 import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
-import com.github.mburyshynets.dgs.service.DataExtensionLookupKey
-import com.github.mburyshynets.dgs.service.DataExtensionService
+import com.github.mburyshynets.dgs.service.ExtraDataLookupKey
+import com.github.mburyshynets.dgs.service.ExtraDataService
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
-import com.github.mburyshynets.dgs.web.graphql.loader.DataExtensionBatchLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
 import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
@@ -17,28 +17,32 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import java.util.UUID
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicLong
 
 @DgsTest(
     classes = [
         UserFetcher::class,
         PostFetcher::class,
-        PostsBatchLoader::class,
-        DataExtensionFetcher::class,
-        DataExtensionBatchLoader::class,
+        ExtraDataFetcher::class,
     ]
 )
-internal class DataExtensionFetcherTest {
+@MockkBean(
+    classes = [
+        PostService::class,
+        ExtraDataService::class,
+    ]
+)
+internal class ExtraDataFetcherTest {
 
     @MockkBean
     private lateinit var userService: UserService
 
     @MockkBean
-    private lateinit var postService: PostService
+    private lateinit var postsBatchLoader: PostsBatchLoader
 
     @MockkBean
-    private lateinit var dataExtensionService: DataExtensionService
+    private lateinit var extraDataBatchLoader: ExtraDataBatchLoader
 
     @Autowired
     private lateinit var dgsQueryExecutor: DgsQueryExecutor
@@ -51,32 +55,33 @@ internal class DataExtensionFetcherTest {
         val users = (1..3).map { User(id = it.toLong(), username = "test-user-$it") }
 
         every { userService.getAllUsers() } returns users
-        every { postService.getPostsByUserIds(any()) } answers {
-            firstArg<Set<Long>>().groupBy({ it }, {
-                Post(
-                    id = postIdGenerator.getAndIncrement(),
-                    userId = it,
-                    content = "test-post",
-                )
-            })
-        }
-        val counter = AtomicInteger(0)
-
-        every { dataExtensionService.getDataExtensions(any()) } answers {
-            println("CALLED: ${counter.incrementAndGet()} - ${firstArg<Any>()}")
-
-            firstArg<Set<DataExtensionLookupKey>>().groupBy({ it }, {
-                ExtraData(
-                    id = UUID.randomUUID().toString(),
-                    entityId = it.id,
-                    entityType = it.type.name,
-                    propertyName = "${it.type} extra field ${it.id}",
-                    propertyValue = "some text"
-                )
-            })
+        every { postsBatchLoader.load(any()) } answers {
+            CompletableFuture.completedFuture(
+                firstArg<Set<Long>>().groupBy({ it }, {
+                    Post(
+                        id = postIdGenerator.getAndIncrement(),
+                        userId = it,
+                        content = "test-post",
+                    )
+                })
+            )
         }
 
-        // when
+        every { extraDataBatchLoader.load(any()) } answers {
+            CompletableFuture.completedFuture(
+                firstArg<Set<ExtraDataLookupKey>>().groupBy({ it }, {
+                    ExtraData(
+                        id = UUID.randomUUID().toString(),
+                        entityId = it.id,
+                        entityType = it.type.name,
+                        propertyName = "${it.type} extra field ${it.id}",
+                        propertyValue = "some text"
+                    )
+                })
+            )
+        }
+
+        // When
         val result = dgsQueryExecutor.execute(
             """
                 query GetUsers {
@@ -106,11 +111,10 @@ internal class DataExtensionFetcherTest {
             """
         )
 
-        // then
-        verify(exactly = 1) { userService.getAllUsers() }
-        verify(exactly = 1) { postService.getPostsByUserIds(users.map { it.id }.toSet()) }
-
-        println(result)
+        // Then
+        verify { userService.getAllUsers() }
+        verify { postsBatchLoader.load(any()) }
+        verify { extraDataBatchLoader.load(any()) }
 
         assertThat(result.errors)
             .isEmpty()

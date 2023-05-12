@@ -6,9 +6,9 @@ import com.github.mburyshynets.dgs.graphql.generated.types.EntityType
 import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
-import com.github.mburyshynets.dgs.service.DataExtensionLookupKey
-import com.github.mburyshynets.dgs.service.DataExtensionService
-import com.github.mburyshynets.dgs.web.graphql.loader.DataExtensionBatchLoader
+import com.github.mburyshynets.dgs.service.ExtraDataLookupKey
+import com.github.mburyshynets.dgs.service.ExtraDataService
+import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
@@ -17,23 +17,23 @@ import com.netflix.graphql.dgs.InputArgument
 import java.util.concurrent.CompletableFuture
 
 @DgsComponent
-class DataExtensionFetcher(private val dataExtensionService: DataExtensionService) {
+class ExtraDataFetcher(private val extraDataService: ExtraDataService) {
 
     @DgsMutation
-    fun createDataExtension(@InputArgument request: CreateExtraDataRequest): ExtraData {
-        return dataExtensionService.createDataExtension(request)
+    fun createExtraData(@InputArgument request: CreateExtraDataRequest): ExtraData {
+        return extraDataService.createExtraData(request)
     }
 
     @DgsData(parentType = DgsConstants.USER.TYPE_NAME)
     @DgsData(parentType = DgsConstants.POST.TYPE_NAME)
-    fun extraData(@InputArgument names: List<String>, dfe: DgsDataFetchingEnvironment): CompletableFuture<List<ExtraData>> {
-        val loader = dfe.getDataLoader<DataExtensionLookupKey, List<ExtraData>>(DataExtensionBatchLoader::class.java)
+    fun extraData(@InputArgument names: List<String>?, dfe: DgsDataFetchingEnvironment): CompletableFuture<List<ExtraData>> {
+        val loader = dfe.getDataLoader<ExtraDataLookupKey, List<ExtraData>>(ExtraDataBatchLoader::class.java)
         val source = dfe.getSource<Any>()
 
         val sourceTypeName = source.javaClass.simpleName
 
         return loader.load(
-            DataExtensionLookupKey(
+            ExtraDataLookupKey(
                 id = when (source) {
                     is User -> source.id
                     is Post -> source.id
