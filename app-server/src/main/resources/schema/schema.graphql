@@ -1,0 +1,14 @@
+scalar Long
+scalar Settings
+
+type Query {
+    user(username: String): User
+    users: [User!]!
+    availableUserSettings: Settings!
+}
+
+type Mutation {
+    createUser(request: CreateUserRequest!): User
+    createPost(request: CreatePostRequest!): Post
+    createExtraData(request: CreateExtraDataRequest!): ExtraData
+}

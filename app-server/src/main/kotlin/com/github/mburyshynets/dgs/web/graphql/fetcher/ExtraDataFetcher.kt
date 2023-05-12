@@ -26,7 +26,11 @@ class ExtraDataFetcher(private val extraDataService: ExtraDataService) {
 
     @DgsData(parentType = DgsConstants.USER.TYPE_NAME)
     @DgsData(parentType = DgsConstants.POST.TYPE_NAME)
-    fun extraData(@InputArgument names: List<String>?, dfe: DgsDataFetchingEnvironment): CompletableFuture<List<ExtraData>> {
+    fun extraData(
+        @InputArgument properties: List<String>?,
+        dfe: DgsDataFetchingEnvironment
+    ): CompletableFuture<List<ExtraData>> {
+
         val loader = dfe.getDataLoader<ExtraDataLookupKey, List<ExtraData>>(ExtraDataBatchLoader::class.java)
         val source = dfe.getSource<Any>()
 
@@ -40,7 +44,7 @@ class ExtraDataFetcher(private val extraDataService: ExtraDataService) {
                     else -> throw IllegalStateException("Unsupported entity type: $sourceTypeName")
                 },
                 type = EntityType.valueOf(sourceTypeName),
-                names = names,
+                properties = properties,
             )
         )
     }

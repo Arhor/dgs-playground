@@ -1,0 +1,27 @@
+type ExtraData {
+    id: ID!
+    entityId: Long!
+    entityType: String!
+    propertyName: String!
+    propertyValue: String
+}
+
+enum EntityType {
+    User
+    Post
+}
+
+input CreateExtraDataRequest {
+    entityId: Long!
+    entityType: EntityType!
+    propertyName: String!
+    propertyValue: String
+}
+
+extend type User {
+    extraData(properties: [String!] = null): [ExtraData]
+}
+
+extend type Post {
+    extraData(properties: [String!] = null): [ExtraData]
+}

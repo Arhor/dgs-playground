@@ -1,0 +1,10 @@
+type Post {
+    id: Long!
+    userId: Long
+    content: String!
+}
+
+input CreatePostRequest {
+    userId: Long!
+    content: String!
+}
