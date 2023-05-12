@@ -44,6 +44,7 @@ internal class DataExtensionFetcherTest {
     private lateinit var dgsQueryExecutor: DgsQueryExecutor
 
     @Test
+    @Suppress("GraphQLUnresolvedReference")
     fun `should return successful result containing empty list of user posts`() {
         // Given
         val postIdGenerator = AtomicLong(1)
@@ -78,8 +79,6 @@ internal class DataExtensionFetcherTest {
         // when
         val result = dgsQueryExecutor.execute(
             """
-                
-                
                 query GetUsers {
                     users {
                         id
