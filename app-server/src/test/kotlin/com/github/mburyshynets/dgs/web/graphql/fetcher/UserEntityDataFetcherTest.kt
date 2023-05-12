@@ -1,9 +1,8 @@
-package com.github.mburyshynets.dgs.graphql.fetcher
+package com.github.mburyshynets.dgs.web.graphql.fetcher
 
 import com.github.mburyshynets.dgs.data.Setting
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.UserService
-import com.github.mburyshynets.dgs.web.graphql.fetcher.UserDataFetcher
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -14,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.ContextConfiguration
 import java.util.EnumSet
 
-@DgsTest
-@ContextConfiguration(classes = [UserDataFetcher::class])
+@DgsTest(classes = [UserFetcher::class])
+//@ContextConfiguration(classes = [UserFetcher::class])
 internal class UserEntityDataFetcherTest {
 
     @MockkBean

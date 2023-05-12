@@ -25,7 +25,7 @@ input CreatePostRequest {
 
 input CreateDataExtensionRequest {
     entityId: Long!
-    entityType: String!
+    entityType: EntityType!
     propertyName: String!
     propertyValue: String
 }
@@ -44,17 +44,22 @@ type Post {
 }
 
 type DataExtension {
-    id: Long!
+    id: ID!
     entityId: Long!
     entityType: String!
     propertyName: String!
     propertyValue: String
 }
 
+enum EntityType {
+    User
+    Post
+}
+
 extend type User {
-    extensions: [DataExtension]
+    extensions(names: [String!]! = []): [DataExtension]
 }
 
 extend type Post {
-    extensions: [DataExtension]
+    extensions(names: [String!]! = []): [DataExtension]
 }

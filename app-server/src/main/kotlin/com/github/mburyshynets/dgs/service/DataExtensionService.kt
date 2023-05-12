@@ -7,5 +7,5 @@ interface DataExtensionService {
 
     fun createDataExtension(request: CreateDataExtensionRequest): DataExtension
 
-    fun getPostsByPostIds(keys: Set<Long>): Map<Long, List<DataExtension>>
+    fun getDataExtensions(keys: Set<DataExtensionLookupKey>): Map<DataExtensionLookupKey, List<DataExtension>>
 }

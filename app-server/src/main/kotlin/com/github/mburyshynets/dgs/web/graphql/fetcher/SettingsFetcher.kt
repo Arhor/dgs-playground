@@ -6,7 +6,7 @@ import com.netflix.graphql.dgs.DgsQuery
 import java.util.EnumSet
 
 @DgsComponent
-class SettingsDataFetcher {
+class SettingsFetcher {
 
     @DgsQuery
     fun availableUserSettings(): EnumSet<Setting> {

@@ -9,7 +9,7 @@ import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
 
 @DgsComponent
-class UserDataFetcher(private val userService: UserService) {
+class UserFetcher(private val userService: UserService) {
 
     @DgsQuery
     fun users(): List<User> {

@@ -14,7 +14,7 @@ import com.netflix.graphql.dgs.InputArgument
 import java.util.concurrent.CompletableFuture
 
 @DgsComponent
-class PostDataFetcher(private val postService: PostService) {
+class PostFetcher(private val postService: PostService) {
 
     @DgsData(parentType = DgsConstants.USER.TYPE_NAME)
     fun posts(dfe: DgsDataFetchingEnvironment): CompletableFuture<List<Post>> {

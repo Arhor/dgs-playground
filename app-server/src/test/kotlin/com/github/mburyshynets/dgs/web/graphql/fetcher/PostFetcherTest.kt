@@ -1,12 +1,10 @@
-package com.github.mburyshynets.dgs.graphql.fetcher
+package com.github.mburyshynets.dgs.web.graphql.fetcher
 
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
-import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
-import com.github.mburyshynets.dgs.web.graphql.fetcher.PostDataFetcher
-import com.github.mburyshynets.dgs.web.graphql.fetcher.UserDataFetcher
+import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -14,11 +12,9 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.ContextConfiguration
 
-@DgsTest
-@ContextConfiguration(classes = [UserDataFetcher::class, PostDataFetcher::class, PostsBatchLoader::class])
-internal class PostDataFetcherTest {
+@DgsTest(classes = [UserFetcher::class, PostFetcher::class, PostsBatchLoader::class])
+internal class PostFetcherTest {
 
     @MockkBean
     private lateinit var postService: PostService

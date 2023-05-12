@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface DataExtensionRepository : CrudRepository<DataExtensionEntity, Long> {
 
-    fun findAllByEntityIdAndEntityType(entityId: Long, entityType: String): List<DataExtensionEntity>
+    fun findAllEntityTypeAndByEntityId(entityType: String, entityId: Long): List<DataExtensionEntity>
 }
