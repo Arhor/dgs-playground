@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 
+import CreateUserForm from '~/components/CreateUserForm';
 import { graphql } from '~/gql';
 
 const GET_ALL_USERS = graphql(`
@@ -32,24 +33,27 @@ function App() {
     }
     if (data) {
         return (
-            <table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>username</th>
-                        <th>settings</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.users.map(({id, username, settings}) => (
-                        <tr key={id}>
-                            <td>{id}</td>
-                            <td>{username}</td>
-                            <td>{settings}</td>
+            <div>
+                <CreateUserForm />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>username</th>
+                            <th>settings</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {data.users.map(({id, username, settings}) => (
+                            <tr key={id}>
+                                <td>{id}</td>
+                                <td>{username}</td>
+                                <td>{settings}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 

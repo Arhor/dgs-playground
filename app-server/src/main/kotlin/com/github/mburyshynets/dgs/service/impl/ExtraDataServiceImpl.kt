@@ -37,7 +37,9 @@ class ExtraDataServiceImpl @Autowired constructor(
 
     @Transactional(readOnly = true)
     override fun getBatchExtraData(keys: Set<ExtraDataLookupKey>): Map<ExtraDataLookupKey, List<ExtraData>> {
-
+        if (keys.isEmpty()) {
+            return emptyMap()
+        }
 
         val target = HashMap<ExtraDataLookupKey, List<ExtraData>>()
 

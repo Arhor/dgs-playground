@@ -8,7 +8,9 @@ import java.util.EnumSet
 @Mapper(config = MapstructCommonConfig::class)
 abstract class SettingsMapper {
 
-    fun wrap(value: EnumSet<Setting>): Settings = Settings(value)
+    fun wrap(value: EnumSet<Setting>?): Settings = Settings(value.safe())
 
-    fun unwrap(value: Settings): EnumSet<Setting> = value.items
+    fun unwrap(value: Settings?): EnumSet<Setting> = value?.items.safe()
+
+    private fun EnumSet<Setting>?.safe() = this ?: EnumSet.noneOf(Setting::class.java)
 }

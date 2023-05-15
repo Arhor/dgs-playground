@@ -23,9 +23,13 @@ class PostServiceImpl(
 
     @Transactional(readOnly = true)
     override fun getPostsByUserIds(keys: Set<Long>): Map<Long, List<Post>> {
-        return postRepository
-            .findAllByUserIdIn(keys)
-            .map { postMapper.mapToDTO(it) }
-            .groupBy { it.userId!! }
+        return if (keys.isEmpty()) {
+            emptyMap()
+        } else {
+            postRepository
+                .findAllByUserIdIn(keys)
+                .map { postMapper.mapToDTO(it) }
+                .groupBy { it.userId!! }
+        }
     }
 }
