@@ -47,7 +47,7 @@ dependencies {
     kapt("org.springframework:spring-context-indexer")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
-    compileOnly("com.google.code.findbugs:jsr305:3.0.2")
+    compileOnly("com.google.code.findbugs:jsr305")
     compileOnly("org.mapstruct:mapstruct:1.5.3.Final")
 
     runtimeOnly("com.github.ben-manes.caffeine:caffeine")
@@ -68,7 +68,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    testImplementation("com.ninja-squad:springmockk:${property("app.version.springmockk")}")
+    testImplementation("com.ninja-squad:springmockk:${property("app.version.spring-mockk")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
@@ -77,7 +77,7 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${property("app.version.testcontainers")}")
-        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property("app.version.graphqlDgsBOM")}")
+        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${property("app.version.graphql-dgs-bom")}")
     }
 }
 

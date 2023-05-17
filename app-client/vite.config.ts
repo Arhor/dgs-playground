@@ -31,6 +31,9 @@ export default defineConfig(({ mode }) => {
                 },
             },
         },
+        build: {
+            outDir: 'build/dist',
+        },
         test: {
             globals: true,
             environment: 'jsdom',
