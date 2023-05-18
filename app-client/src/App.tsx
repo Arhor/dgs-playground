@@ -1,63 +1,25 @@
-import { useQuery } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-import CreateUserForm from '~/components/CreateUserForm';
-import { graphql } from '~/gql';
+import CssBaseline from '@mui/material/CssBaseline';
 
-const GET_ALL_USERS = graphql(`
-    query GetAllUsers {
-        users {
-            id
-            username
-            settings
-            posts {
-                id
-                userId
-                content
-            }
-        }
-    }
-`);
+import AppLayout from '~/AppLayout';
+import AppThemeProvider from '~/AppThemeProvider';
+import ErrorBoundary from '~/components/ErrorBoundary';
 
-function App() {
-    const { loading, error, data } = useQuery(GET_ALL_USERS);
+const client = new ApolloClient({
+    uri: '/graphql',
+    cache: new InMemoryCache(),
+});
 
-    if (loading) {
-        return (
-            <p>Loading...</p>
-        );
-    }
-    if (error) {
-        return (
-            <p>Error : {error.message}</p>
-        );
-    }
-    if (data) {
-        return (
-            <div>
-                <CreateUserForm />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>username</th>
-                            <th>settings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.users.map(({id, username, settings}) => (
-                            <tr key={id}>
-                                <td>{id}</td>
-                                <td>{username}</td>
-                                <td>{settings}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
-
-    return null;
-}
+const App = () => (
+    <AppThemeProvider>
+        <CssBaseline />
+        <ErrorBoundary>
+            <ApolloProvider client={client}>
+                <AppLayout />
+            </ApolloProvider>
+        </ErrorBoundary>
+    </AppThemeProvider>
+);
 
 export default App;
