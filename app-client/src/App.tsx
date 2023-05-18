@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { SnackbarProvider } from 'notistack';
 
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -16,7 +17,9 @@ const App = () => (
         <CssBaseline />
         <ErrorBoundary>
             <ApolloProvider client={client}>
-                <AppLayout />
+                <SnackbarProvider preventDuplicate>
+                    <AppLayout />
+                </SnackbarProvider>
             </ApolloProvider>
         </ErrorBoundary>
     </AppThemeProvider>

@@ -24,7 +24,13 @@ class SettingsScalar(private val objectMapper: ObjectMapper) : Coercing<EnumSet<
     }
 
     override fun parseValue(input: Any): EnumSet<Setting> {
-        return input.toString()
+        if (input is List<*>) {
+            return input
+                .map { it.toString() }
+                .map { Setting.valueOf(it) }
+                .fold(EnumSet.noneOf(Setting::class.java)) { acc, setting -> acc.apply { add(setting) } }
+        }
+        return objectMapper.writeValueAsString(input)
             .let { objectMapper.readValue<Array<Setting>>(it) }
             .let { EnumSet.of(it.head, *it.tail) }
     }
@@ -75,4 +81,10 @@ class SettingsScalar(private val objectMapper: ObjectMapper) : Coercing<EnumSet<
 
     private final inline val <reified T> Array<T>.tail: Array<T>
         get() = if (isNotEmpty()) copyOfRange(1, size - 1) else emptyArray()
+
+    private final inline val <T> List<T>.head: T
+        get() = get(0)
+
+    private final inline val <reified T> List<T>.tail: List<T>
+        get() = if (isNotEmpty()) subList(1, size - 1) else emptyList()
 }

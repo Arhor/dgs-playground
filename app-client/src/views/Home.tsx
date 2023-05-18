@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+
 import { useQuery } from '@apollo/client';
+import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@mui/material/Paper';
@@ -24,16 +27,21 @@ const GET_ALL_USERS = graphql(`
 
 const Home = () => {
     const { t } = useTranslation();
-    const { loading, error, data } = useQuery(GET_ALL_USERS, { pollInterval: 30_000 });
+    const { loading, error, data, previousData } = useQuery(GET_ALL_USERS, { pollInterval: 5_000 });
+    const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
+        if (error) {
+            enqueueSnackbar(error.message, {
+                variant: 'error',
+                autoHideDuration: 10_000,
+            });
+        }
+    }, [error]);
 
     if (loading) {
         return (
             <Loading />
-        );
-    }
-    if (error) {
-        return (
-            <p>Error : {error.message}</p>
         );
     }
 
@@ -48,11 +56,11 @@ const Home = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data!.users.map(({ id, username, settings }) => (
+                    {(data ?? previousData)?.users.map(({ id, username, settings }) => (
                         <TableRow key={id}>
                             <TableCell>{id}</TableCell>
                             <TableCell>{username}</TableCell>
-                            <TableCell>{settings}</TableCell>
+                            <TableCell>{settings?.map(it => it.toLocaleLowerCase().replaceAll('_', ' '))?.join(', ')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

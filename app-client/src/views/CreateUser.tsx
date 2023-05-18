@@ -1,6 +1,4 @@
-import { FormEvent, useState } from 'react';
-
-import { useMutation, useQuery } from '@apollo/client';
+import { FormEvent } from 'react';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
@@ -13,71 +11,21 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import Loading from '~/components/Loading/Loading';
-import { graphql } from '~/gql';
+import useAvailableUserSettings from '~/hooks/useAvailableUserSettings';
+import useCreateUserMutation from '~/hooks/useCreateUserMutation';
 import { Optional } from '~/utils/core-utils';
 
-const GET_AVAILABLE_USER_SETTINGS = graphql(`
-    query GetAvailableUserSettings {
-        availableUserSettings
-    }
-`);
-
-const CREATE_USER = graphql(`
-    mutation CreateUser($username: String!, $settings: Settings) {
-        createUser(request: { username: $username, settings: $settings }) {
-            id
-            username
-            settings
-        }
-    }
-`);
-
-const USER_FRAGMENT = graphql(`
-    fragment NewUser on User {
-        id
-        username
-        settings
-    }
-`);
-
 const CreateUser = () => {
-    
-    const { loading, error, data } = useQuery(GET_AVAILABLE_USER_SETTINGS/* , {
-        onCompleted(data) {
-
-        },
-    } */);
-    const [createUser] = useMutation(CREATE_USER, {
-        update(cache, result) {
-            cache.modify({
-                fields: {
-                    users(existingUsers = []) {
-                        return [
-                            ...existingUsers,
-                            cache.writeFragment({
-                                data: result.data?.createUser,
-                                fragment: USER_FRAGMENT,
-                            }),
-                        ];
-                    },
-                },
-            });
-        },
-    });
+    const { loading, availableUserSettings, switchSetting } = useAvailableUserSettings();
+    const { createUser } = useCreateUserMutation();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
 
-        /* eslint-disable no-console */
-        console.log('-------------------------------');
-        console.log(formData);
-        console.log('-------------------------------');
-        /* eslint-enable no-console */
-
         const username = formData.get('username') as Optional<string>;
-        const settings = formData.get('settings') as Optional<string[]>;
+        const settings = availableUserSettings.filter(it => it.checked).map(it => it.name);
 
         if (username) {
             await createUser({
@@ -125,14 +73,17 @@ const CreateUser = () => {
                         />
                     </Grid>
                     <Grid item xs={10}>
-                        {data!.availableUserSettings.map(setting => (
-                            <FormControlLabel key={setting} control={<Checkbox onChange={(e) => {
-                                /* eslint-disable no-console */
-                                console.log('-------------------------------');
-                                console.log(e);
-                                console.log('-------------------------------');
-                                /* eslint-enable no-console */
-                            }} />} label={setting} />
+                        {availableUserSettings.map(({ name, checked }) => (
+                            <FormControlLabel
+                                key={name}
+                                label={name}
+                                control={
+                                    <Checkbox
+                                        checked={checked}
+                                        onChange={() => switchSetting(name)}
+                                    />
+                                }
+                            />
                         ))}
                     </Grid>
                     <Grid item xs={10}>
