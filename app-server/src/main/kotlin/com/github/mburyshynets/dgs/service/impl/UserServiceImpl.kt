@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional
 class UserServiceImpl(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
 ) : UserService {
 
+    @Transactional
     override fun createNewUser(request: CreateUserRequest): User {
         return userMapper.mapToEntity(request)
             .let { userRepository.save(it) }

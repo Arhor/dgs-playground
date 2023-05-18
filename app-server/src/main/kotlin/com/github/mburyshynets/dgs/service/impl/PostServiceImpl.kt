@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional
 class PostServiceImpl(
     private val postRepository: PostRepository,
     private val postMapper: PostMapper,
 ) : PostService {
 
+    @Transactional
     override fun createNewPost(request: CreatePostRequest): Post {
         return postMapper.mapToEntity(request)
             .let { postRepository.save(it) }
