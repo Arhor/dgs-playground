@@ -1,7 +1,5 @@
 package com.github.mburyshynets.dgs.web.graphql.scalar
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.mburyshynets.dgs.data.Setting
 import com.netflix.graphql.dgs.DgsScalar
 import graphql.language.ArrayValue
@@ -10,40 +8,43 @@ import graphql.language.StringValue
 import graphql.language.Value
 import graphql.schema.Coercing
 import graphql.schema.CoercingParseLiteralException
+import graphql.schema.CoercingParseValueException
 import graphql.schema.CoercingSerializeException
 import java.util.EnumSet
 
 @DgsScalar(name = "Settings")
-class SettingsScalar(private val objectMapper: ObjectMapper) : Coercing<EnumSet<Setting>, List<String>> {
+class SettingsScalar : Coercing<EnumSet<Setting>, Iterable<String>> {
 
-    override fun serialize(dataFetcherResult: Any): List<String> {
-        if (dataFetcherResult is EnumSet<*>) {
-            return dataFetcherResult.map { it.name }
+    override fun serialize(dataFetcherResult: Any): Iterable<String> {
+        return if (dataFetcherResult is EnumSet<*>) {
+            dataFetcherResult.map { it.name }
+        } else {
+            throw CoercingSerializeException("Not a valid EnumSet<Setting>")
         }
-        throw CoercingSerializeException("Not a valid EnumSet<Setting>")
     }
 
-    override fun parseValue(input: Any): EnumSet<Setting> {
-        if (input is List<*>) {
-            return input
-                .map { it.toString() }
-                .map { Setting.valueOf(it) }
-                .fold(EnumSet.noneOf(Setting::class.java)) { acc, setting -> acc.apply { add(setting) } }
+    override fun parseValue(data: Any): EnumSet<Setting> {
+        return when (data) {
+            is String -> {
+                data.split(",").asSettings()
+            }
+
+            is Iterable<*> -> {
+                data.map { it.toString() }.asSettings()
+            }
+
+            else -> {
+                throw CoercingParseValueException("Expected Iterable or String, but it was: ${data.javaClass.name}")
+            }
         }
-        return objectMapper.writeValueAsString(input)
-            .let { objectMapper.readValue<Array<Setting>>(it) }
-            .let { EnumSet.of(it.head, *it.tail) }
     }
 
     override fun parseLiteral(input: Any): EnumSet<Setting> {
         return when (input) {
-            is ArrayValue -> input.values
-                .map { extractStringValue(it) }
-                .map { parseSettingItem(it) }
-                .toEnumSet()
+            is ArrayValue -> input.values.map { extractStringValue(it) }.asSettings()
 
             else -> throw CoercingParseLiteralException(
-                "Expected AST type 'ArrayValue' but was '${input::class.simpleName}'."
+                "Expected AST type 'ArrayValue' but was '${input.javaClass.simpleName}'."
             )
         }
     }
@@ -64,27 +65,8 @@ class SettingsScalar(private val objectMapper: ObjectMapper) : Coercing<EnumSet<
         }
     }
 
-    private fun parseSettingItem(input: String): Setting {
-        return try {
-            Setting.valueOf(input)
-        } catch (e: IllegalArgumentException) {
-            throw CoercingParseLiteralException(e.message)
-        }
-    }
-
-    private inline fun <reified T : Enum<T>> Iterable<T>.toEnumSet(): EnumSet<T> {
-        return EnumSet.noneOf(T::class.java).also { it.addAll(this) }
-    }
-
-    private final inline val <T> Array<T>.head: T
-        get() = get(0)
-
-    private final inline val <reified T> Array<T>.tail: Array<T>
-        get() = if (isNotEmpty()) copyOfRange(1, size - 1) else emptyArray()
-
-    private final inline val <T> List<T>.head: T
-        get() = get(0)
-
-    private final inline val <reified T> List<T>.tail: List<T>
-        get() = if (isNotEmpty()) subList(1, size - 1) else emptyList()
+    private fun Iterable<String>.asSettings(): EnumSet<Setting> = this
+        .map(String::trim)
+        .map(Setting::valueOf)
+        .let { settings -> EnumSet.noneOf(Setting::class.java).also { it.addAll(settings) } }
 }
