@@ -50,13 +50,13 @@ dependencies {
     compileOnly("com.google.code.findbugs:jsr305")
     compileOnly("org.mapstruct:mapstruct:1.5.3.Final")
 
-    runtimeOnly("com.github.ben-manes.caffeine:caffeine")
     runtimeOnly("org.postgresql:postgresql")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     implementation(platform(rootProject))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
     implementation("org.flywaydb:flyway-core")

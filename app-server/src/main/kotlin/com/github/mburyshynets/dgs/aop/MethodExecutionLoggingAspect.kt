@@ -26,9 +26,9 @@ class MethodExecutionLoggingAspect {
         val methodName = signature.name
         val methodArgs = joinPoint.args.contentToString()
 
-        logger.info("Method: $methodName() >>> args: $methodArgs")
+        logger.debug("Method: {}() >>> args: {}", methodName, methodArgs)
         val (result, duration) = measureTimedValue { joinPoint.proceed() }
-        logger.info("Method: $methodName() <<< exit: ${signature.format(result)}, time: $duration")
+        logger.debug("Method: {}() <<< exit: {}, time: {}", methodName, signature.format(result), duration)
 
         return result
     }
