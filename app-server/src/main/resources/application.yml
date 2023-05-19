@@ -49,6 +49,11 @@ spring:
     caffeine:
       spec: 'initialCapacity=100,maximumSize=500,expireAfterAccess=300s'
 
+dgs:
+  graphql:
+    graphiql:
+      enabled: false
+
 ---
 
 spring:
@@ -65,5 +70,8 @@ spring:
 
 dgs:
   reload: true
+  graphql:
+    graphiql:
+      enabled: true
 
 log-method-execution: true

@@ -39,6 +39,8 @@ tasks {
         val schemaPath = "../app-server/src/main/resources/schema/"
 
         inputs.dir(schemaPath)
+        inputs.dir("src")
+        inputs.dir("node_modules")
         inputs.file("codegen.ts")
 
         outputs.dir("src/gql")

@@ -21,6 +21,9 @@ const GET_ALL_USERS = graphql(`
             id
             username
             settings
+            posts {
+                id
+            }
         }
     }
 `);
