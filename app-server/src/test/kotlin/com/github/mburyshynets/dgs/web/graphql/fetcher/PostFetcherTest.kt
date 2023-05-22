@@ -1,5 +1,6 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
+import com.github.mburyshynets.dgs.config.ConfigureAsyncTasks
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.PostService
@@ -13,7 +14,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-@DgsTest(classes = [UserFetcher::class, PostFetcher::class, PostsBatchLoader::class])
+@DgsTest(classes = [UserFetcher::class, PostFetcher::class, PostsBatchLoader::class, ConfigureAsyncTasks::class])
 internal class PostFetcherTest {
 
     @MockkBean
