@@ -30,10 +30,10 @@ internal class PostFetcherTest {
     fun `should return successful result containing empty list of user posts`() {
         // given
         val user = User(id = 1, username = "test-user")
-        val post = Post(id = 2, userId = user.id, content = "test-post")
+        val post = Post(id = 2, userId = user.id, topicId = 1L, content = "test-post")
 
         every { userService.getUserByUsername(any()) } returns user
-        every { postService.getPostsByUserIds(any()) } returns mapOf(user.id to listOf(post))
+        every { postService.getPostsUserId(any()) } returns listOf(post)
 
         // when
         val result = dgsQueryExecutor.execute(
@@ -52,7 +52,7 @@ internal class PostFetcherTest {
 
         // then
         verify { userService.getUserByUsername(user.username) }
-        verify { postService.getPostsByUserIds(setOf(user.id)) }
+        verify { postService.getPostsUserId(user.id) }
 
         assertThat(result.errors)
             .isEmpty()

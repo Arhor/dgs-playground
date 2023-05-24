@@ -39,6 +39,9 @@ internal class ExtraDataFetcherTest {
     private lateinit var userService: UserService
 
     @MockkBean
+    private lateinit var postService: PostService
+
+    @MockkBean
     private lateinit var postsBatchLoader: PostsBatchLoader
 
     @MockkBean
@@ -55,15 +58,14 @@ internal class ExtraDataFetcherTest {
         val users = (1..3).map { User(id = it.toLong(), username = "test-user-$it") }
 
         every { userService.getAllUsers() } returns users
-        every { postsBatchLoader.load(any()) } answers {
-            CompletableFuture.completedFuture(
-                firstArg<Set<Long>>().groupBy({ it }, {
-                    Post(
-                        id = postIdGenerator.getAndIncrement(),
-                        userId = it,
-                        content = "test-post",
-                    )
-                })
+        every { postService.getPostsUserId(any()) } answers {
+            listOf(
+                Post(
+                    id = postIdGenerator.getAndIncrement(),
+                    userId = firstArg(),
+                    topicId = 1L,
+                    content = "test-post",
+                )
             )
         }
 
@@ -113,7 +115,6 @@ internal class ExtraDataFetcherTest {
 
         // Then
         verify { userService.getAllUsers() }
-        verify { postsBatchLoader.load(any()) }
         verify { extraDataBatchLoader.load(any()) }
 
         assertThat(result.errors)
