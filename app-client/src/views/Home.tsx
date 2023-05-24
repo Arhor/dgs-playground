@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,12 +11,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import Loading from '~/components/Loading/Loading';
+import useCurrentUser from '~/hooks/useCurrentUser';
 import useTopics from '~/hooks/useTopics';
 
 const Home = () => {
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const { loading, data, previousData } = useTopics();
-
+    const { data: currentUserData } = useCurrentUser();
 
     if (loading) {
         return (
@@ -24,6 +28,11 @@ const Home = () => {
 
     return (
         <TableContainer component={Paper}>
+            {currentUserData?.currentUser && (
+                <Button color="inherit" onClick={() => navigate('/create-topic')}>
+                    {t('Create New Topic')}
+                </Button>
+            )}
             <Table>
                 <TableHead>
                     <TableRow>

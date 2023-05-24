@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
         },
         server: {
             proxy: {
-                '^/graphql': {
+                '^/(api|graphql)': {
                     target: process.env.API_BASE_URL || 'http://localhost:5000',
                     changeOrigin: true,
                 },
