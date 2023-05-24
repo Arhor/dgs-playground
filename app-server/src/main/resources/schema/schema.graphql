@@ -4,11 +4,14 @@ scalar Settings
 type Query {
     user(username: String): User
     users: [User!]!
+    currentUser: User
     availableUserSettings: Settings!
+    topics: [Topic!]!
 }
 
 type Mutation {
-    createUser(request: CreateUserRequest!): User
-    createPost(request: CreatePostRequest!): Post
+    createUser(request: CreateUserRequest!): User!
+    createPost(request: CreatePostRequest!): Post!
+    createTopic(request: CreateTopicRequest!): Topic!
     createExtraData(request: CreateExtraDataRequest!): ExtraData
 }

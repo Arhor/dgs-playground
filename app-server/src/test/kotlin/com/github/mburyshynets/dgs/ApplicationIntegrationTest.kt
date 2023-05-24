@@ -98,6 +98,7 @@ internal class ApplicationIntegrationTest : WithDatabaseContainer {
     private fun prepareUser() = userRepository.save(
         UserEntity(
             username = "test-user",
+            password = "test-pass",
             settings = Settings(
                 items = EnumSet.of(
                     Setting.AGE_OVER_18,

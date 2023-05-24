@@ -1,5 +1,7 @@
 import { FormEvent } from 'react';
 
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -7,15 +9,17 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import Loading from '~/components/Loading/Loading';
 import useAvailableUserSettings from '~/hooks/useAvailableUserSettings';
 import useCreateUserMutation from '~/hooks/useCreateUserMutation';
 import { Optional } from '~/utils/core-utils';
 
-const CreateUser = () => {
+
+const SignUpForm = () => {
+    const navigate = useNavigate();
     const { loading, availableUserSettings, switchSetting } = useAvailableUserSettings();
     const { createUser } = useCreateUserMutation();
 
@@ -25,23 +29,20 @@ const CreateUser = () => {
         const formData = new FormData(e.currentTarget);
 
         const username = formData.get('username') as Optional<string>;
+        const password = formData.get('password') as Optional<string>;
         const settings = availableUserSettings.filter(it => it.checked).map(it => it.name);
 
-        if (username) {
+        if (username && password) {
             await createUser({
                 variables: {
                     username,
+                    password,
                     settings,
                 }
             });
+            navigate('/sign-in');
         }
     };
-
-    if (loading) {
-        return (
-            <Loading />
-        );
-    }
 
     return (
         <Box
@@ -73,6 +74,18 @@ const CreateUser = () => {
                         />
                     </Grid>
                     <Grid item xs={10}>
+                        <TextField
+                            id="password"
+                            name="password"
+                            type="password"
+                            label="Password"
+                            margin="normal"
+                            required
+                            fullWidth
+                            sx={{ mb: 5 }}
+                        />
+                    </Grid>
+                    <Grid item xs={10}>
                         {availableUserSettings.map(({ name, checked }) => (
                             <FormControlLabel
                                 key={name}
@@ -96,10 +109,15 @@ const CreateUser = () => {
                             {"Sign Up"}
                         </Button>
                     </Grid>
+                    <Grid item>
+                        <Link to="/sign-in" component={RouterLink} variant="body2">
+                            {"Already have an account? Sign in"}
+                        </Link>
+                    </Grid>
                 </Grid>
             </Box>
         </Box>
     );
 };
 
-export default CreateUser;
+export default SignUpForm;

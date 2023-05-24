@@ -1,12 +1,12 @@
+input CreateUserRequest {
+    username: String!
+    password: String!
+    settings: Settings
+}
+
 type User {
     id: Long!
     username: String!
     settings: Settings
     posts: [Post!]
 }
-
-input CreateUserRequest {
-    username: String!
-    settings: Settings
-}
-

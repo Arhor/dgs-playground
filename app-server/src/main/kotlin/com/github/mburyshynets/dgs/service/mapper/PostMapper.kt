@@ -9,6 +9,7 @@ import org.mapstruct.Mapping
 @Mapper(config = MapstructCommonConfig::class)
 interface PostMapper {
 
+    @IgnoreAuditMappings
     @Mapping(target = "id", ignore = true)
     fun mapToEntity(request: CreatePostRequest): PostEntity
 

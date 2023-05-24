@@ -18,10 +18,12 @@ class ConfigureWebServer : WebMvcConfigurer {
                 "/index.html",
                 "/favicon.svg",
                 "/assets/**",
+                "/locales/**",
             )
             .addResourceLocations(
                 "classpath:/static/",
                 "classpath:/static/assets/",
+                "classpath:/static/locales/",
             )
     }
 }

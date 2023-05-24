@@ -6,8 +6,12 @@ import { useSnackbar } from 'notistack';
 import { graphql } from '~/gql';
 
 const CREATE_USER = graphql(`
-    mutation CreateUser($username: String!, $settings: Settings) {
-        createUser(request: { username: $username, settings: $settings }) {
+    mutation CreateUser($username: String!, $password: String!, $settings: Settings) {
+        createUser(request: {
+            username: $username, 
+            password: $password,
+            settings: $settings
+        }) {
             id
             username
             settings

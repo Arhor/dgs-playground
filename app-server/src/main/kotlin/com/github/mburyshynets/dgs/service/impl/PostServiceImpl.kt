@@ -5,6 +5,7 @@ import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.mapper.PostMapper
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,7 +16,11 @@ class PostServiceImpl(
 ) : PostService {
 
     @Transactional
-    override fun createNewPost(request: CreatePostRequest): Post {
+    override fun createNewPost(request: CreatePostRequest, currentUser: UserDetails): Post {
+        // TODO: verify that current user executes request
+        // if (currentUser.id != request.userId) {
+        //     throw IllegalStateException("Cannot create topic for another user!")
+        // }
         return postMapper.mapToEntity(request)
             .let { postRepository.save(it) }
             .let { postMapper.mapToDTO(it) }
@@ -31,5 +36,13 @@ class PostServiceImpl(
                 .map { postMapper.mapToDTO(it) }
                 .groupBy { it.userId!! }
         }
+    }
+
+    override fun getPostsUserId(userId: Long): List<Post> {
+        return postRepository.findAllByUserId(userId).map { postMapper.mapToDTO(it) }
+    }
+
+    override fun getPostsByTopicId(topicId: Long): List<Post> {
+        return postRepository.findAllByTopicId(topicId).map { postMapper.mapToDTO(it) }
     }
 }

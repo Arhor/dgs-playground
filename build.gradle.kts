@@ -6,6 +6,8 @@ plugins {
 dependencies {
     constraints {
         api("com.google.code.findbugs:jsr305:3.0.2")
+        api("org.mapstruct:mapstruct-processor:1.5.3.Final")
+        api("org.mapstruct:mapstruct:1.5.3.Final")
     }
 }
 

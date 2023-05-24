@@ -1,0 +1,12 @@
+input CreateTopicRequest {
+    name: String!
+    userId: Long!
+}
+
+type Topic {
+    id: Long!
+    userId: Long
+    name: String!
+    posts: [Post!]
+    lastPost: Post
+}

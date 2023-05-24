@@ -16,8 +16,10 @@ import org.mapstruct.Mapping
 )
 interface UserMapper {
 
+    @IgnoreAuditMappings
     @Mapping(target = "id", ignore = true)
-    fun mapToEntity(request: CreateUserRequest): UserEntity
+    @Mapping(target = "password", source = "password")
+    fun mapToEntity(request: CreateUserRequest, password: String): UserEntity
 
     @Mapping(target = "posts", ignore = true)
     @Mapping(target = "extraData", ignore = true)

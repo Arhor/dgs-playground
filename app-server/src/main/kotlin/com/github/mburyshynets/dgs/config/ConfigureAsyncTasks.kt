@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.AsyncConfigurer
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor
 import org.springframework.web.context.request.RequestContextHolder
 import java.util.concurrent.Executor
 
@@ -21,10 +22,12 @@ class ConfigureAsyncTasks : AsyncConfigurer {
 
     @Bean("asyncExecutor")
     override fun getAsyncExecutor(): Executor {
-        return ThreadPoolTaskExecutor().apply {
-            initialize()
-            setTaskDecorator(::decorateUsingParentContext)
-        }
+        return DelegatingSecurityContextAsyncTaskExecutor(
+            ThreadPoolTaskExecutor().apply {
+                initialize()
+                setTaskDecorator(::decorateUsingParentContext)
+            }
+        )
     }
 
     private fun decorateUsingParentContext(task: Runnable): Runnable {

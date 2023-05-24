@@ -43,12 +43,12 @@ configurations {
 
 dependencies {
     kapt(platform(rootProject))
-    kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
+    kapt("org.mapstruct:mapstruct-processor")
     kapt("org.springframework:spring-context-indexer")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     compileOnly("com.google.code.findbugs:jsr305")
-    compileOnly("org.mapstruct:mapstruct:1.5.3.Final")
+    compileOnly("org.mapstruct:mapstruct")
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -65,11 +65,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     testImplementation("com.ninja-squad:springmockk:${property("app.version.spring-mockk")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
 }

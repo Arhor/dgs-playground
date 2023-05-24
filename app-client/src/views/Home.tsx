@@ -1,7 +1,3 @@
-import { useEffect } from 'react';
-
-import { useQuery } from '@apollo/client';
-import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@mui/material/Paper';
@@ -13,34 +9,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import Loading from '~/components/Loading/Loading';
-import { graphql } from '~/gql';
-
-const GET_ALL_USERS = graphql(`
-    query GetAllUsers {
-        users {
-            id
-            username
-            settings
-            posts {
-                id
-            }
-        }
-    }
-`);
+import useTopics from '~/hooks/useTopics';
 
 const Home = () => {
     const { t } = useTranslation();
-    const { loading, error, data, previousData } = useQuery(GET_ALL_USERS, { pollInterval: 5_000 });
-    const { enqueueSnackbar } = useSnackbar();
+    const { loading, data, previousData } = useTopics();
 
-    useEffect(() => {
-        if (error) {
-            enqueueSnackbar(error.message, {
-                variant: 'error',
-                autoHideDuration: 10_000,
-            });
-        }
-    }, [error]);
 
     if (loading) {
         return (
@@ -54,16 +28,16 @@ const Home = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell>{t('Id')}</TableCell>
-                        <TableCell>{t('Username')}</TableCell>
-                        <TableCell>{t('Settings')}</TableCell>
+                        <TableCell>{t('Name')}</TableCell>
+                        <TableCell>{t('Content')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {(data ?? previousData)?.users.map(({ id, username, settings }) => (
+                    {(data ?? previousData)?.topics.map(({ id, name, lastPost }) => (
                         <TableRow key={id}>
                             <TableCell>{id}</TableCell>
-                            <TableCell>{username}</TableCell>
-                            <TableCell>{settings?.map(it => it.toLocaleLowerCase().replaceAll('_', ' '))?.join(', ')}</TableCell>
+                            <TableCell>{name}</TableCell>
+                            <TableCell>{lastPost?.content.substring(0, 20)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

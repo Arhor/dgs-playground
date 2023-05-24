@@ -1,10 +1,12 @@
 type Post {
     id: Long!
     userId: Long
+    topicId: Long!
     content: String!
 }
 
 input CreatePostRequest {
     userId: Long!
+    topicId: Long!
     content: String!
 }
