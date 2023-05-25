@@ -8,7 +8,7 @@ import com.github.mburyshynets.dgs.service.ExtraDataService
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
 import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
-import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -42,7 +42,7 @@ internal class ExtraDataFetcherTest {
     private lateinit var postService: PostService
 
     @MockkBean
-    private lateinit var postsBatchLoader: PostsBatchLoader
+    private lateinit var postsBatchLoader: UserPostsBatchLoader
 
     @MockkBean
     private lateinit var extraDataBatchLoader: ExtraDataBatchLoader

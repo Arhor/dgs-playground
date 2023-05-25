@@ -7,6 +7,8 @@ import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.Topic
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.PostService
+import com.github.mburyshynets.dgs.web.graphql.loader.TopicPostsBatchLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
@@ -15,29 +17,25 @@ import com.netflix.graphql.dgs.InputArgument
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.concurrent.CompletableFuture
 
 @DgsComponent
 class PostFetcher(private val postService: PostService) {
 
-    // TODO: create loader
     @DgsData(parentType = USER.TYPE_NAME, field = USER.Posts)
-    fun userPosts(dfe: DgsDataFetchingEnvironment): List<Post> {
+    fun userPosts(dfe: DgsDataFetchingEnvironment): CompletableFuture<List<Post>> {
         val user = dfe.getSource<User>()
-        return postService.getPostsUserId(user.id)
+        val dataLoader = dfe.getDataLoader<Long, List<Post>>(UserPostsBatchLoader::class.java)
+
+        return dataLoader.load(user.id)
     }
 
-    // TODO: create loader
     @DgsData(parentType = TOPIC.TYPE_NAME, field = TOPIC.Posts)
-    fun topicPosts(dfe: DgsDataFetchingEnvironment): List<Post> {
+    fun topicPosts(dfe: DgsDataFetchingEnvironment): CompletableFuture<List<Post>> {
         val topic = dfe.getSource<Topic>()
-        return postService.getPostsByTopicId(topic.id)
-    }
+        val dataLoader = dfe.getDataLoader<Long, List<Post>>(TopicPostsBatchLoader::class.java)
 
-    // TODO: create loader
-    @DgsData(parentType = TOPIC.TYPE_NAME, field = TOPIC.LastPost)
-    fun topicLastPost(dfe: DgsDataFetchingEnvironment): Post? {
-        val topic = dfe.getSource<Topic>()
-        return postService.getPostsByTopicId(topic.id).lastOrNull()
+        return dataLoader.load(topic.id)
     }
 
     @DgsMutation

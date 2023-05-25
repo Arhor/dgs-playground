@@ -8,13 +8,13 @@ import org.dataloader.MappedBatchLoader
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 
-@DgsDataLoader(name = "posts")
-class PostsBatchLoader(
+@DgsDataLoader(name = "userPosts")
+class TopicPostsBatchLoader(
     private val asyncExecutor: Executor,
     private val postService: PostService,
 ) : MappedBatchLoader<Long, List<Post>> {
 
-    override fun load(keys: Set<Long>): CompletableFuture<Map<Long, List<Post>>> {
-        return asyncExecutor.async { postService.getPostsByUserIds(keys) }
+    override fun load(topicIds: Set<Long>): CompletableFuture<Map<Long, List<Post>>> {
+        return asyncExecutor.async { postService.getPostsByTopicIds(topicIds) }
     }
 }

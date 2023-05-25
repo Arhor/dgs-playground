@@ -5,7 +5,7 @@ import com.github.mburyshynets.dgs.graphql.generated.types.Post
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.service.UserService
-import com.github.mburyshynets.dgs.web.graphql.loader.PostsBatchLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -14,7 +14,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-@DgsTest(classes = [UserFetcher::class, PostFetcher::class, PostsBatchLoader::class, ConfigureAsyncTasks::class])
+@DgsTest(classes = [UserFetcher::class, PostFetcher::class, UserPostsBatchLoader::class, ConfigureAsyncTasks::class])
 internal class PostFetcherTest {
 
     @MockkBean

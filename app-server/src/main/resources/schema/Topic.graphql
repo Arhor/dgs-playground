@@ -8,5 +8,4 @@ type Topic {
     userId: Long
     name: String!
     posts: [Post!]
-    lastPost: Post
 }

@@ -27,14 +27,25 @@ class PostServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun getPostsByUserIds(keys: Set<Long>): Map<Long, List<Post>> {
-        return if (keys.isEmpty()) {
+    override fun getPostsByUserIds(userIds: Set<Long>): Map<Long, List<Post>> {
+        return if (userIds.isEmpty()) {
             emptyMap()
         } else {
             postRepository
-                .findAllByUserIdIn(keys)
+                .findAllByUserIdIn(userIds)
                 .map { postMapper.mapToDTO(it) }
                 .groupBy { it.userId!! }
+        }
+    }
+
+    override fun getPostsByTopicIds(topicIds: Set<Long>): Map<Long, List<Post>> {
+        return if (topicIds.isEmpty()) {
+            emptyMap()
+        } else {
+            postRepository
+                .findAllByTopicIdIn(topicIds)
+                .map { postMapper.mapToDTO(it) }
+                .groupBy { it.topicId }
         }
     }
 
