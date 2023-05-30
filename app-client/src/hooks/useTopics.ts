@@ -10,7 +10,7 @@ const GET_TOPICS = graphql(`
         topics {
             id
             name
-            lastPost {
+            posts {
                 id
                 content
             }

@@ -3,6 +3,7 @@ package com.github.mburyshynets.dgs.config
 import org.slf4j.MDC
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.AsyncConfigurer
@@ -20,7 +21,7 @@ class ConfigureAsyncTasks : AsyncConfigurer {
         return SimpleAsyncUncaughtExceptionHandler()
     }
 
-    @Bean("asyncExecutor")
+    @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
     override fun getAsyncExecutor(): Executor {
         return DelegatingSecurityContextAsyncTaskExecutor(
             ThreadPoolTaskExecutor().apply {
