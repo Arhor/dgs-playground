@@ -48,6 +48,10 @@ spring:
   cache:
     caffeine:
       spec: 'initialCapacity=100,maximumSize=500,expireAfterAccess=300s'
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
 dgs:
   graphql:

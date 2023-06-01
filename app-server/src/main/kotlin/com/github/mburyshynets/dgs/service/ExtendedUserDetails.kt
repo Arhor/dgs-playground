@@ -1,11 +1,16 @@
 package com.github.mburyshynets.dgs.service
 
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
 
-open class ExtendedUserDetails(
+open class ExtendedUserDetails private constructor(
     val id: Long?,
-    username: String,
-    password: String,
-    authorities: Collection<GrantedAuthority>,
-) : User(username, password, authorities)
+    private val userDetails: UserDetails,
+) : UserDetails by userDetails {
+
+    companion object {
+        fun UserDetails.extendWith(id: Long?) = ExtendedUserDetails(
+            id = id,
+            userDetails = this,
+        )
+    }
+}

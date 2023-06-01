@@ -67,7 +67,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-undertow")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.session:spring-session-jdbc")
 
     testImplementation("com.ninja-squad:springmockk:${property("app.version.spring-mockk")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

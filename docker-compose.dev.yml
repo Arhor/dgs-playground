@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   dgs-playground-db:
-    image: postgres:12
-    container_name: dgs-playground-db
+    image: postgres:12-alpine
     ports:
       - "5432:5432"
     tmpfs:
