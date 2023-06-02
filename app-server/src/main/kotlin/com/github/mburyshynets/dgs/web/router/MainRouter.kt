@@ -8,11 +8,9 @@ import org.springframework.web.servlet.function.router
 @Component
 class MainRouter : RouterFunction<ServerResponse> by router({
 
-    "/api".nest {
-        GET(pattern = "health") {
-            ServerResponse
-                .ok()
-                .body("UP")
-        }
+    GET(pattern = "/api/health") {
+        ServerResponse
+            .ok()
+            .body("UP")
     }
 })
