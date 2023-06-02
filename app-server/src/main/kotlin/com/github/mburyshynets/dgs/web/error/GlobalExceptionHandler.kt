@@ -17,7 +17,6 @@ import org.springframework.web.servlet.NoHandlerFoundException
 import java.io.FileNotFoundException
 import java.time.LocalDateTime
 import java.util.Locale
-import java.util.TimeZone
 import java.util.function.Supplier
 
 @RestControllerAdvice
@@ -28,9 +27,9 @@ class GlobalExceptionHandler(
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
-    fun handleDefault(exception: Exception, locale: Locale, timeZone: TimeZone): ErrorResponse {
+    fun handleDefault(exception: Exception, locale: Locale): ErrorResponse {
         logger.error("Unhandled exception. Consider appropriate exception handler")
-        return handleErrorCode(exception, ErrorCode.UNCATEGORIZED, locale, timeZone)
+        return handleErrorCode(exception, ErrorCode.UNCATEGORIZED, locale)
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -38,9 +37,8 @@ class GlobalExceptionHandler(
     fun handleDataAccessException(
         exception: DataAccessException,
         locale: Locale,
-        timeZone: TimeZone
     ): ErrorResponse {
-        return handleErrorCode(exception, ErrorCode.DATA_COMMON, locale, timeZone)
+        return handleErrorCode(exception, ErrorCode.DATA_COMMON, locale)
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -48,13 +46,11 @@ class GlobalExceptionHandler(
     fun handleMethodArgumentTypeMismatchException(
         exception: MethodArgumentTypeMismatchException,
         locale: Locale,
-        timeZone: TimeZone
     ): ErrorResponse {
         return handleErrorCode(
             exception,
             ErrorCode.METHOD_ARG_TYPE_MISMATCH,
             locale,
-            timeZone,
             exception.name,
             exception.value,
             exception.requiredType
@@ -66,7 +62,6 @@ class GlobalExceptionHandler(
     fun handleNoHandlerFoundException(
         exception: NoHandlerFoundException,
         locale: Locale,
-        timeZone: TimeZone,
     ): Any {
         val requestURL = exception.requestURL
 
@@ -76,7 +71,6 @@ class GlobalExceptionHandler(
                     exception,
                     ErrorCode.HANDLER_NOT_FOUND_DEFAULT,
                     locale,
-                    timeZone
                 )
             }
 
@@ -85,7 +79,6 @@ class GlobalExceptionHandler(
                     exception,
                     ErrorCode.HANDLER_NOT_FOUND,
                     locale,
-                    timeZone,
                     exception.httpMethod,
                     requestURL
                 )
@@ -102,9 +95,8 @@ class GlobalExceptionHandler(
     fun handleAccessDeniedException(
         exception: AccessDeniedException,
         locale: Locale,
-        timeZone: TimeZone
     ): ErrorResponse {
-        return handleErrorCode(exception, ErrorCode.UNAUTHORIZED, locale, timeZone)
+        return handleErrorCode(exception, ErrorCode.UNAUTHORIZED, locale)
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -112,7 +104,6 @@ class GlobalExceptionHandler(
     fun handleMethodArgumentNotValidException(
         exception: MethodArgumentNotValidException,
         locale: Locale,
-        timeZone: TimeZone,
     ): ErrorResponse {
         val bindingResult = exception.bindingResult
 
@@ -131,7 +122,6 @@ class GlobalExceptionHandler(
             exception = exception,
             errorCode = ErrorCode.VALIDATION_FAILED,
             locale = locale,
-            timeZone = timeZone,
             details = (fieldErrors + globalErrors),
             bindingResult.objectName,
         )
@@ -142,13 +132,11 @@ class GlobalExceptionHandler(
     fun handleFileNotFoundException(
         exception: FileNotFoundException,
         locale: Locale,
-        timeZone: TimeZone,
     ): ErrorResponse {
         return handleErrorCode(
             exception,
             ErrorCode.FILE_NOT_FOUND,
             locale,
-            timeZone
         )
     }
 
@@ -156,13 +144,11 @@ class GlobalExceptionHandler(
         exception: Throwable,
         errorCode: ErrorCode,
         locale: Locale,
-        timeZone: TimeZone?,
         vararg args: Any?
     ): ErrorResponse = handleErrorCode(
         exception = exception,
         errorCode = errorCode,
         locale = locale,
-        timeZone = timeZone,
         details = emptyList(),
         args = args
     )
@@ -171,7 +157,6 @@ class GlobalExceptionHandler(
         exception: Throwable,
         errorCode: ErrorCode,
         locale: Locale,
-        timeZone: TimeZone?,
         details: List<String> = emptyList(),
         vararg args: Any?
     ): ErrorResponse {
