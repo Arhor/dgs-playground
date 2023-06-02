@@ -27,7 +27,7 @@ class PostFetcher(private val postService: PostService) {
         val user = dfe.getSource<User>()
         val dataLoader = dfe.getDataLoader<Long, List<Post>>(UserPostsBatchLoader::class.java)
 
-        return dataLoader.load(user.id)
+        return dataLoader.load(user.id.toLong())
     }
 
     @DgsData(parentType = TOPIC.TYPE_NAME, field = TOPIC.Posts)
@@ -35,7 +35,7 @@ class PostFetcher(private val postService: PostService) {
         val topic = dfe.getSource<Topic>()
         val dataLoader = dfe.getDataLoader<Long, List<Post>>(TopicPostsBatchLoader::class.java)
 
-        return dataLoader.load(topic.id)
+        return dataLoader.load(topic.id.toLong())
     }
 
     @DgsMutation

@@ -6,5 +6,5 @@ import java.util.UUID
 
 interface ExtraDataRepository : CrudRepository<ExtraDataEntity, UUID> {
 
-    fun findAllEntityTypeAndByEntityId(entityType: String, entityId: Long): List<ExtraDataEntity>
+    fun findAllByEntityTypeAndEntityIdIn(entityType: String, entityIds: Collection<String>): List<ExtraDataEntity>
 }

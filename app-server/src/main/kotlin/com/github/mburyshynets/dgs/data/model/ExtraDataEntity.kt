@@ -14,14 +14,11 @@ data class ExtraDataEntity(
     val id: UUID? = null,
 
     @Column("entity_id")
-    val entityId: Long,
+    val entityId: String,
 
     @Column("entity_type")
     val entityType: String,
 
-    @Column("property_name")
-    val propertyName: String,
-
-    @Column("property_value")
-    val propertyValue: String?,
+    @Column("data")
+    val data: Map<String, Any>,
 )

@@ -1,4 +1,5 @@
 scalar Long
+scalar Object
 scalar Settings
 
 type Query {
@@ -14,4 +15,8 @@ type Mutation {
     createPost(request: CreatePostRequest!): Post!
     createTopic(request: CreateTopicRequest!): Topic!
     createExtraData(request: CreateExtraDataRequest!): ExtraData
+}
+
+interface Indentifiable {
+    id: ID!
 }

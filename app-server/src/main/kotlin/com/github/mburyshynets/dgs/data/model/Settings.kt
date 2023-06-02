@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.data
+package com.github.mburyshynets.dgs.data.model
 
 import java.util.EnumSet
 

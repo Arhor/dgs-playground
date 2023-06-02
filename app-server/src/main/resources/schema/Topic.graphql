@@ -1,11 +1,11 @@
 input CreateTopicRequest {
     name: String!
-    userId: Long!
+    userId: ID!
 }
 
-type Topic {
-    id: Long!
-    userId: Long
+type Topic implements Indentifiable {
+    id: ID!
+    userId: ID
     name: String!
     posts: [Post!]
 }

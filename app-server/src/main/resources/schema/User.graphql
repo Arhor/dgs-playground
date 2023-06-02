@@ -4,8 +4,8 @@ input CreateUserRequest {
     settings: Settings
 }
 
-type User {
-    id: Long!
+type User implements Indentifiable {
+    id: ID!
     username: String!
     settings: Settings
     posts: [Post!]

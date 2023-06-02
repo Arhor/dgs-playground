@@ -1,6 +1,5 @@
 package com.github.mburyshynets.dgs.data.model
 
-import com.github.mburyshynets.dgs.data.Settings
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Immutable

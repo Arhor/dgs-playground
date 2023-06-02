@@ -1,14 +1,14 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.DgsConstants
+import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.POST
+import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.USER
 import com.github.mburyshynets.dgs.graphql.generated.types.CreateExtraDataRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.EntityType
 import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
-import com.github.mburyshynets.dgs.graphql.generated.types.User
-import com.github.mburyshynets.dgs.service.ExtraDataLookupKey
+import com.github.mburyshynets.dgs.graphql.generated.types.Indentifiable
 import com.github.mburyshynets.dgs.service.ExtraDataService
 import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
+import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader.ForPost
+import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader.ForUser
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
@@ -24,28 +24,22 @@ class ExtraDataFetcher(private val extraDataService: ExtraDataService) {
         return extraDataService.createExtraData(request)
     }
 
-    @DgsData(parentType = DgsConstants.USER.TYPE_NAME)
-    @DgsData(parentType = DgsConstants.POST.TYPE_NAME)
-    fun extraData(
-        @InputArgument properties: List<String>?,
-        dfe: DgsDataFetchingEnvironment
-    ): CompletableFuture<List<ExtraData>> {
+    @DgsData(parentType = USER.TYPE_NAME, field = USER.ExtraData)
+    fun userExtraData(dfe: DgsDataFetchingEnvironment): CompletableFuture<ExtraData> {
+        return dfe.loadExtraData<ForUser>()
+    }
 
-        val loader = dfe.getDataLoader<ExtraDataLookupKey, List<ExtraData>>(ExtraDataBatchLoader::class.java)
-        val source = dfe.getSource<Any>()
+    @DgsData(parentType = POST.TYPE_NAME, field = POST.ExtraData)
+    fun postExtraData(dfe: DgsDataFetchingEnvironment): CompletableFuture<ExtraData> {
+        return dfe.loadExtraData<ForPost>()
+    }
 
-        val sourceTypeName = source.javaClass.simpleName
+    private inline fun <reified T> DgsDataFetchingEnvironment.loadExtraData(): CompletableFuture<ExtraData>
+        where T : ExtraDataBatchLoader {
 
-        return loader.load(
-            ExtraDataLookupKey(
-                id = when (source) {
-                    is User -> source.id
-                    is Post -> source.id
-                    else -> throw IllegalStateException("Unsupported entity type: $sourceTypeName")
-                },
-                type = EntityType.valueOf(sourceTypeName),
-                properties = properties,
-            )
-        )
+        val loader = getDataLoader<String, ExtraData>(T::class.java)
+        val source = getSource<Indentifiable>()
+
+        return loader.load(source.id)
     }
 }

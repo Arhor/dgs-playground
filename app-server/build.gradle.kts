@@ -50,8 +50,6 @@ dependencies {
     compileOnly("com.google.code.findbugs:jsr305")
     compileOnly("org.mapstruct:mapstruct")
 
-    runtimeOnly("org.postgresql:postgresql")
-
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     implementation(platform(rootProject))
@@ -62,6 +60,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -110,7 +109,8 @@ tasks {
         language = "kotlin"
         packageName = "com.github.mburyshynets.dgs.graphql.generated"
         typeMapping = mutableMapOf(
-            "Settings" to "java.util.EnumSet<com.github.mburyshynets.dgs.data.Setting>",
+            "Settings" to "java.util.EnumSet<com.github.mburyshynets.dgs.data.model.Setting>",
+            "Object" to "Map<String, Any>",
         )
     }
 

@@ -1,12 +1,12 @@
-type Post {
-    id: Long!
-    userId: Long
-    topicId: Long!
+input CreatePostRequest {
+    userId: ID!
+    topicId: ID!
     content: String!
 }
 
-input CreatePostRequest {
-    userId: Long!
+type Post implements Indentifiable {
+    id: ID!
+    userId: Long
     topicId: Long!
     content: String!
 }

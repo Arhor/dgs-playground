@@ -1,5 +1,6 @@
 package com.github.mburyshynets.dgs.data
 
+import com.github.mburyshynets.dgs.data.model.Setting
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource

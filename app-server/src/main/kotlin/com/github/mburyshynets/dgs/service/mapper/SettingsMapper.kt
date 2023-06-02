@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.service.mapper;
 
-import com.github.mburyshynets.dgs.data.Setting
-import com.github.mburyshynets.dgs.data.Settings
+import com.github.mburyshynets.dgs.data.model.Setting
+import com.github.mburyshynets.dgs.data.model.Settings
 import org.mapstruct.Mapper
 import java.util.EnumSet
 

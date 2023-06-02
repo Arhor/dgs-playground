@@ -30,7 +30,7 @@ class UserFetcher(private val userService: UserService) {
     fun currentUser(@AuthenticationPrincipal currentUser: ExtendedUserDetails?): User? {
         return currentUser?.let {
             User(
-                id = it.id!!,
+                id = it.id.toString(),
                 username = it.username,
             )
         }

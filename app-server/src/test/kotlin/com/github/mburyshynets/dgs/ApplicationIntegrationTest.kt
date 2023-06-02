@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs
 
-import com.github.mburyshynets.dgs.data.Setting
-import com.github.mburyshynets.dgs.data.Settings
+import com.github.mburyshynets.dgs.data.model.Setting
+import com.github.mburyshynets.dgs.data.model.Settings
 import com.github.mburyshynets.dgs.data.model.UserEntity
 import com.github.mburyshynets.dgs.data.repository.UserRepository
 import org.junit.jupiter.api.Test

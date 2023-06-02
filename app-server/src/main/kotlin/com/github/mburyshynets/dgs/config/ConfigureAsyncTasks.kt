@@ -23,12 +23,12 @@ class ConfigureAsyncTasks : AsyncConfigurer {
 
     @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
     override fun getAsyncExecutor(): Executor {
-        return DelegatingSecurityContextAsyncTaskExecutor(
-            ThreadPoolTaskExecutor().apply {
-                initialize()
-                setTaskDecorator(::decorateUsingParentContext)
-            }
-        )
+        val executor = ThreadPoolTaskExecutor()
+
+        executor.initialize()
+        executor.setTaskDecorator(::decorateUsingParentContext)
+
+        return DelegatingSecurityContextAsyncTaskExecutor(executor)
     }
 
     private fun decorateUsingParentContext(task: Runnable): Runnable {

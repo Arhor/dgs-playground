@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.data
+package com.github.mburyshynets.dgs.data.model
 
 const val MIN_SETTING_INDEX = 0
 const val MAX_SETTING_INDEX = Long.SIZE_BITS - 1
