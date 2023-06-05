@@ -4,8 +4,8 @@ import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.User
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.UserService
-import com.github.mburyshynets.dgs.service.impl.Limit
-import com.github.mburyshynets.dgs.service.impl.Offset
+import com.github.mburyshynets.dgs.service.Limit
+import com.github.mburyshynets.dgs.service.Offset
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsQuery

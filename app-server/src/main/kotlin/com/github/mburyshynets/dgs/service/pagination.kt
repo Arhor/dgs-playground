@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.service.impl
+package com.github.mburyshynets.dgs.service
 
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort

@@ -5,6 +5,9 @@ import com.github.mburyshynets.dgs.graphql.generated.types.CreateTopicRequest
 import com.github.mburyshynets.dgs.graphql.generated.types.Topic
 import com.github.mburyshynets.dgs.service.DgsPermissionDeniedException
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
+import com.github.mburyshynets.dgs.service.Limit
+import com.github.mburyshynets.dgs.service.Offset
+import com.github.mburyshynets.dgs.service.OffsetBasedPageRequest
 import com.github.mburyshynets.dgs.service.TopicService
 import com.github.mburyshynets.dgs.service.mapper.TopicMapper
 import org.springframework.stereotype.Service
