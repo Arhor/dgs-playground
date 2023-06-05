@@ -8,10 +8,8 @@ import java.util.UUID
 @Component
 class ExtraDataEntityIdGenerator : BeforeConvertCallback<ExtraDataEntity> {
 
-    override fun onBeforeConvert(aggregate: ExtraDataEntity): ExtraDataEntity {
-        return when (aggregate.id) {
-            null -> aggregate.copy(id = UUID.randomUUID())
-            else -> aggregate
-        }
+    override fun onBeforeConvert(entity: ExtraDataEntity) = when (entity.id) {
+        null -> entity.copy(id = UUID.randomUUID())
+        else -> entity
     }
 }
