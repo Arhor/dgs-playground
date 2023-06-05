@@ -1,11 +1,11 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.TOPIC
-import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.USER
-import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
-import com.github.mburyshynets.dgs.graphql.generated.types.Topic
-import com.github.mburyshynets.dgs.graphql.generated.types.User
+import com.github.mburyshynets.dgs.generated.graphql.DgsConstants.TOPIC
+import com.github.mburyshynets.dgs.generated.graphql.DgsConstants.USER
+import com.github.mburyshynets.dgs.generated.graphql.types.CreatePostRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Post
+import com.github.mburyshynets.dgs.generated.graphql.types.Topic
+import com.github.mburyshynets.dgs.generated.graphql.types.User
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.PostService
 import com.github.mburyshynets.dgs.web.graphql.loader.TopicPostsBatchLoader

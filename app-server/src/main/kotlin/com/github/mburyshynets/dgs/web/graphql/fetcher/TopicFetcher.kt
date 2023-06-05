@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateTopicRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Topic
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateTopicRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Topic
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.TopicService
 import com.github.mburyshynets.dgs.service.Limit

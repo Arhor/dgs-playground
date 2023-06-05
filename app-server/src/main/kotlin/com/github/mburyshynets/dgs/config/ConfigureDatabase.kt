@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mburyshynets.dgs.data.converter.JsonReadingConverter
-import com.github.mburyshynets.dgs.data.converter.JsonWritingConverter
+import com.github.mburyshynets.dgs.features.extradata.entity.converter.JsonReadingConverter
+import com.github.mburyshynets.dgs.features.extradata.entity.converter.JsonWritingConverter
 import com.github.mburyshynets.dgs.data.converter.SettingsReadingConverter
 import com.github.mburyshynets.dgs.data.converter.SettingsWritingConverter
 import org.springframework.boot.autoconfigure.flyway.FlywayConfigurationCustomizer

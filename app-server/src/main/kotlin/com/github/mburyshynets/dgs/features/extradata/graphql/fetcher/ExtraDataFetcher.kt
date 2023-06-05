@@ -1,12 +1,12 @@
-package com.github.mburyshynets.dgs.web.graphql.fetcher
+package com.github.mburyshynets.dgs.features.extradata.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.POST
-import com.github.mburyshynets.dgs.graphql.generated.DgsConstants.USER
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateExtraDataRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
-import com.github.mburyshynets.dgs.graphql.generated.types.Indentifiable
-import com.github.mburyshynets.dgs.service.ExtraDataService
-import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
+import com.github.mburyshynets.dgs.generated.graphql.DgsConstants.POST
+import com.github.mburyshynets.dgs.generated.graphql.DgsConstants.USER
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateExtraDataRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.ExtraData
+import com.github.mburyshynets.dgs.generated.graphql.types.Indentifiable
+import com.github.mburyshynets.dgs.features.extradata.ExtraDataService
+import com.github.mburyshynets.dgs.features.extradata.graphql.loader.ExtraDataBatchLoader
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment

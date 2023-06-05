@@ -1,13 +1,13 @@
 //package com.github.mburyshynets.dgs.web.graphql.fetcher
 //
-//import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
-//import com.github.mburyshynets.dgs.graphql.generated.types.Post
-//import com.github.mburyshynets.dgs.graphql.generated.types.User
+//import com.github.mburyshynets.dgs.generated.graphql.types.ExtraData
+//import com.github.mburyshynets.dgs.generated.graphql.types.Post
+//import com.github.mburyshynets.dgs.generated.graphql.types.User
 //import com.github.mburyshynets.dgs.service.ExtraDataLookupKey
-//import com.github.mburyshynets.dgs.service.ExtraDataService
+//import com.github.mburyshynets.dgs.extradata.ExtraDataService
 //import com.github.mburyshynets.dgs.service.PostService
 //import com.github.mburyshynets.dgs.service.UserService
-//import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
+//import com.github.mburyshynets.dgs.extradata.graphql.loader.ExtraDataBatchLoader
 //import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader
 //import com.netflix.graphql.dgs.DgsQueryExecutor
 //import com.ninjasquad.springmockk.MockkBean

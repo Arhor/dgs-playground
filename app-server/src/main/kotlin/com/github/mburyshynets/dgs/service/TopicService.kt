@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.service
 
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateTopicRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Topic
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateTopicRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Topic
 
 interface TopicService {
     fun createNewTopic(request: CreateTopicRequest, currentUser: ExtendedUserDetails): Topic

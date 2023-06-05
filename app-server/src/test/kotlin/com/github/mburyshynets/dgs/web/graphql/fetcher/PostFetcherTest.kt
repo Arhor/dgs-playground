@@ -1,8 +1,8 @@
 //package com.github.mburyshynets.dgs.web.graphql.fetcher
 //
 //import com.github.mburyshynets.dgs.config.ConfigureAsyncTasks
-//import com.github.mburyshynets.dgs.graphql.generated.types.Post
-//import com.github.mburyshynets.dgs.graphql.generated.types.User
+//import com.github.mburyshynets.dgs.generated.graphql.types.Post
+//import com.github.mburyshynets.dgs.generated.graphql.types.User
 //import com.github.mburyshynets.dgs.service.PostService
 //import com.github.mburyshynets.dgs.service.UserService
 //import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader

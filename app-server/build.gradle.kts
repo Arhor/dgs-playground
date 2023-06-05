@@ -107,7 +107,7 @@ tasks {
 
     generateJava {
         language = "kotlin"
-        packageName = "com.github.mburyshynets.dgs.graphql.generated"
+        packageName = "com.github.mburyshynets.dgs.generated.graphql"
         typeMapping = mutableMapOf(
             "Settings" to "java.util.EnumSet<com.github.mburyshynets.dgs.data.model.Setting>",
             "Object" to "Map<String, Any>",

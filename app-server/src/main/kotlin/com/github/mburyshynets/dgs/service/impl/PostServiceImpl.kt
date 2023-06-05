@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.repository.PostRepository
-import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
+import com.github.mburyshynets.dgs.generated.graphql.types.CreatePostRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Post
 import com.github.mburyshynets.dgs.service.DgsPermissionDeniedException
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.PostService

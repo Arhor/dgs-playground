@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.service
 
-import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
+import com.github.mburyshynets.dgs.generated.graphql.types.CreatePostRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Post
 
 interface PostService {
     fun createNewPost(request: CreatePostRequest, currentUser: ExtendedUserDetails): Post

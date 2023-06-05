@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.mapper
 
 import com.github.mburyshynets.dgs.data.model.TopicEntity
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateTopicRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Topic
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateTopicRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Topic
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

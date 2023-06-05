@@ -1,6 +1,6 @@
-package com.github.mburyshynets.dgs.data.repository
+package com.github.mburyshynets.dgs.features.extradata.repository
 
-import com.github.mburyshynets.dgs.data.model.ExtraDataEntity
+import com.github.mburyshynets.dgs.features.extradata.entity.ExtraDataEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 

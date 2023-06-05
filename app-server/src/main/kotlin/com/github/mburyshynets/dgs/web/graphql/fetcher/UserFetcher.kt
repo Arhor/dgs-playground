@@ -1,7 +1,7 @@
 package com.github.mburyshynets.dgs.web.graphql.fetcher
 
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.User
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateUserRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.User
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.UserService
 import com.github.mburyshynets.dgs.service.Limit

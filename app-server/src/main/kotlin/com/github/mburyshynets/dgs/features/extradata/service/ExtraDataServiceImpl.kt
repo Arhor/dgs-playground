@@ -1,19 +1,16 @@
-package com.github.mburyshynets.dgs.service.impl
+package com.github.mburyshynets.dgs.features.extradata.service
 
-import com.github.mburyshynets.dgs.data.model.ExtraDataEntity
-import com.github.mburyshynets.dgs.data.repository.ExtraDataRepository
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateExtraDataRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.ExtendedEntityType
-import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
-import com.github.mburyshynets.dgs.service.ExtraDataService
-import org.springframework.beans.factory.annotation.Autowired
+import com.github.mburyshynets.dgs.features.extradata.ExtraDataService
+import com.github.mburyshynets.dgs.features.extradata.entity.ExtraDataEntity
+import com.github.mburyshynets.dgs.features.extradata.repository.ExtraDataRepository
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateExtraDataRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.ExtendedEntityType
+import com.github.mburyshynets.dgs.generated.graphql.types.ExtraData
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class ExtraDataServiceImpl @Autowired constructor(
-    private val extraDataRepository: ExtraDataRepository,
-) : ExtraDataService {
+class ExtraDataServiceImpl(private val extraDataRepository: ExtraDataRepository) : ExtraDataService {
 
     @Transactional
     override fun createExtraData(request: CreateExtraDataRequest): ExtraData {

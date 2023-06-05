@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.mapper
 
 import com.github.mburyshynets.dgs.data.model.PostEntity
-import com.github.mburyshynets.dgs.graphql.generated.types.CreatePostRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
+import com.github.mburyshynets.dgs.generated.graphql.types.CreatePostRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Post
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

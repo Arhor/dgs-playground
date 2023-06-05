@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.data.converter
+package com.github.mburyshynets.dgs.features.extradata.entity.converter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.postgresql.util.PGobject

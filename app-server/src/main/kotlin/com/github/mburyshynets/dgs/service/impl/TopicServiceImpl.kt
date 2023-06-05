@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.repository.TopicRepository
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateTopicRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.Topic
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateTopicRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.Topic
 import com.github.mburyshynets.dgs.service.DgsPermissionDeniedException
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails
 import com.github.mburyshynets.dgs.service.Limit

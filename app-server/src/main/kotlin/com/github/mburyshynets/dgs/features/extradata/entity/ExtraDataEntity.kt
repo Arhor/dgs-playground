@@ -1,4 +1,4 @@
-package com.github.mburyshynets.dgs.data.model
+package com.github.mburyshynets.dgs.features.extradata.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Immutable

@@ -1,8 +1,8 @@
-package com.github.mburyshynets.dgs.web.graphql.loader
+package com.github.mburyshynets.dgs.features.extradata.graphql.loader
 
-import com.github.mburyshynets.dgs.graphql.generated.types.ExtendedEntityType
-import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
-import com.github.mburyshynets.dgs.service.ExtraDataService
+import com.github.mburyshynets.dgs.generated.graphql.types.ExtendedEntityType
+import com.github.mburyshynets.dgs.generated.graphql.types.ExtraData
+import com.github.mburyshynets.dgs.features.extradata.ExtraDataService
 import com.netflix.graphql.dgs.DgsDataLoader
 import org.dataloader.MappedBatchLoader
 import java.util.concurrent.CompletableFuture

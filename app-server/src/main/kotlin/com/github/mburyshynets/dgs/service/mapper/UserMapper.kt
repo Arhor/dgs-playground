@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.mapper
 
 import com.github.mburyshynets.dgs.data.model.UserEntity
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.User
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateUserRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.User
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 

@@ -1,8 +1,8 @@
 package com.github.mburyshynets.dgs.service.impl
 
 import com.github.mburyshynets.dgs.data.repository.UserRepository
-import com.github.mburyshynets.dgs.graphql.generated.types.CreateUserRequest
-import com.github.mburyshynets.dgs.graphql.generated.types.User
+import com.github.mburyshynets.dgs.generated.graphql.types.CreateUserRequest
+import com.github.mburyshynets.dgs.generated.graphql.types.User
 import com.github.mburyshynets.dgs.service.ExtendedUserDetails.Companion.extendWith
 import com.github.mburyshynets.dgs.service.Limit
 import com.github.mburyshynets.dgs.service.Offset

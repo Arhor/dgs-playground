@@ -1,6 +1,6 @@
 package com.github.mburyshynets.dgs.web.graphql.loader
 
-import com.github.mburyshynets.dgs.graphql.generated.types.Post
+import com.github.mburyshynets.dgs.generated.graphql.types.Post
 import com.github.mburyshynets.dgs.service.PostService
 import com.netflix.graphql.dgs.DgsDataLoader
 import org.dataloader.MappedBatchLoader
