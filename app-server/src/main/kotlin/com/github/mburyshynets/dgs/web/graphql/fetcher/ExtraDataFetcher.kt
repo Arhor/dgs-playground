@@ -7,8 +7,6 @@ import com.github.mburyshynets.dgs.graphql.generated.types.ExtraData
 import com.github.mburyshynets.dgs.graphql.generated.types.Indentifiable
 import com.github.mburyshynets.dgs.service.ExtraDataService
 import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader
-import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader.ForPost
-import com.github.mburyshynets.dgs.web.graphql.loader.ExtraDataBatchLoader.ForUser
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
@@ -26,15 +24,15 @@ class ExtraDataFetcher(private val extraDataService: ExtraDataService) {
 
     @DgsData(parentType = USER.TYPE_NAME, field = USER.ExtraData)
     fun userExtraData(dfe: DgsDataFetchingEnvironment): CompletableFuture<ExtraData> {
-        return dfe.loadExtraData<ForUser>()
+        return dfe.loadExtraDataUsing<ExtraDataBatchLoader.ForUser>()
     }
 
     @DgsData(parentType = POST.TYPE_NAME, field = POST.ExtraData)
     fun postExtraData(dfe: DgsDataFetchingEnvironment): CompletableFuture<ExtraData> {
-        return dfe.loadExtraData<ForPost>()
+        return dfe.loadExtraDataUsing<ExtraDataBatchLoader.ForPost>()
     }
 
-    private inline fun <reified T> DgsDataFetchingEnvironment.loadExtraData(): CompletableFuture<ExtraData>
+    private inline fun <reified T> DgsDataFetchingEnvironment.loadExtraDataUsing(): CompletableFuture<ExtraData>
         where T : ExtraDataBatchLoader {
 
         val loader = getDataLoader<String, ExtraData>(T::class.java)
