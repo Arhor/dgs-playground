@@ -20,8 +20,9 @@ const config: CodegenConfig = {
             config: {
                 strictScalars: true,
                 scalars: {
-                    'Long': 'number',
-                    'Settings': 'string[]',
+                    Long: 'number',
+                    Object: '{ [key: string]: any }',
+                    Settings: 'string[]',
                 }
             }
         },
