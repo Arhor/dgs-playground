@@ -4,10 +4,10 @@ scalar Settings
 
 type Query {
     user(username: String): User
-    users: [User!]!
+    users(offset: Int!, limit: Int!): [User!]!
     currentUser: User
     availableUserSettings: Settings!
-    topics: [Topic!]!
+    topics(offset: Int!, limit: Int!): [Topic!]!
 }
 
 type Mutation {
@@ -19,4 +19,11 @@ type Mutation {
 
 interface Indentifiable {
     id: ID!
+}
+
+interface Page {
+    page: Int!
+    size: Int!
+    totalPages: Int!
+    totalItems: Int!
 }

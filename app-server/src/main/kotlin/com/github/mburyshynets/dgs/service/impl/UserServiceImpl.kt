@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.security.core.userdetails.User as SpringUserDetails
 
+
 @Service
 class UserServiceImpl(
     private val passwordEncoder: PasswordEncoder,
@@ -50,7 +51,10 @@ class UserServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun getAllUsers(): List<User> {
-        return userRepository.findAll().map(userMapper::mapToDTO).toList()
+    override fun getAllUsers(offset: Offset, limit: Limit): List<User> {
+        return userRepository
+            .findAll(OffsetBasedPageRequest(offset, limit))
+            .map(userMapper::mapToDTO)
+            .toList()
     }
 }
