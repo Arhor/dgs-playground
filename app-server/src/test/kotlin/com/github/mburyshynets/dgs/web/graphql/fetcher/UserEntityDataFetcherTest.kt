@@ -2,7 +2,7 @@
 //
 //import com.github.mburyshynets.dgs.data.model.Setting
 //import com.github.mburyshynets.dgs.generated.graphql.types.User
-//import com.github.mburyshynets.dgs.service.UserService
+//import com.github.mburyshynets.dgs.features.user.UserService
 //import com.netflix.graphql.dgs.DgsQueryExecutor
 //import com.ninjasquad.springmockk.MockkBean
 //import io.mockk.every

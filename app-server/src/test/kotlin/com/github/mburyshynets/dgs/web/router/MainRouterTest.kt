@@ -1,5 +1,6 @@
 package com.github.mburyshynets.dgs.web.router
 
+import com.github.mburyshynets.dgs.common.MainRouter
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.from
 import org.junit.jupiter.api.Test

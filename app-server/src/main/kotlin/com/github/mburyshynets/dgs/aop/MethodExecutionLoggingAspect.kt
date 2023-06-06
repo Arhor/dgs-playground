@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Component
 import java.util.concurrent.CompletableFuture
-import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -49,13 +48,15 @@ class MethodExecutionLoggingAspect {
             with(Timer()) {
                 when (val result = joinPoint.proceed()) {
                     is CompletableFuture<*> -> result.thenApply {
-                        logger.debug(FUN_EXECUTION_CLOSE, methodName, method.format(it), elapsedTime)
-                        it
+                        it.also {
+                            logger.debug(FUN_EXECUTION_CLOSE, methodName, it.formattedWith(method), elapsedTime)
+                        }
                     }
 
-                    else -> result.let {
-                        logger.debug(FUN_EXECUTION_CLOSE, methodName, method.format(it), elapsedTime)
-                        it
+                    else -> {
+                        result.also {
+                            logger.debug(FUN_EXECUTION_CLOSE, methodName, it.formattedWith(method), elapsedTime)
+                        }
                     }
                 }
             }
@@ -64,26 +65,24 @@ class MethodExecutionLoggingAspect {
         }
     }
 
-    @Pointcut("execution(* $ROOT.web..*(..)) && (within($REST_CONTROLLER *) || within($DGS_COMPONENT *) || within($DGS_DATA_LOADER *))")
+    @Pointcut("execution(* $ROOT.*.web..*(..)) && (within($REST_CONTROLLER *) || within($DGS_COMPONENT *) || within($DGS_DATA_LOADER *))")
     private fun webLayer() {
         /* no-op */
     }
 
-    @Pointcut("execution(* $ROOT.service..*(..))")
+    @Pointcut("execution(* $ROOT.*.service..*(..))")
     private fun serviceLayer() {
         /* no-op */
     }
 
-    @Pointcut("execution(* $ROOT.data..*(..))")
+    @Pointcut("execution(* $ROOT.*.data..*(..))")
     private fun dataLayer() {
         /* no-op */
     }
 
     @JvmInline
     value class Timer(private val start: Long = System.currentTimeMillis()) {
-
-        val elapsedTime: Duration
-            get() = (System.currentTimeMillis() - start).toDuration(DurationUnit.MILLISECONDS)
+        val elapsedTime get() = (System.currentTimeMillis() - start).toDuration(DurationUnit.MILLISECONDS)
     }
 
     companion object {
@@ -103,9 +102,9 @@ class MethodExecutionLoggingAspect {
         private val logger = LoggerFactory.getLogger(MethodExecutionLoggingAspect::class.java)
 
         @Suppress("NOTHING_TO_INLINE")
-        private inline fun MethodSignature.format(result: Any?): String = when (returnType.name) {
+        private inline fun Any?.formattedWith(method: MethodSignature): String = when (method.returnType.name) {
             VOID -> VOID
-            else -> result.toString()
+            else -> toString()
         }
     }
 }

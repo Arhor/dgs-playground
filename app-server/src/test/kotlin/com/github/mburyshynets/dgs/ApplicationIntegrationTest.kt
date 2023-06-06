@@ -1,9 +1,9 @@
 package com.github.mburyshynets.dgs
 
-import com.github.mburyshynets.dgs.data.model.Setting
-import com.github.mburyshynets.dgs.data.model.Settings
-import com.github.mburyshynets.dgs.data.model.UserEntity
-import com.github.mburyshynets.dgs.data.repository.UserRepository
+import com.github.mburyshynets.dgs.features.user.entity.Setting
+import com.github.mburyshynets.dgs.features.user.entity.Settings
+import com.github.mburyshynets.dgs.features.user.entity.UserEntity
+import com.github.mburyshynets.dgs.features.user.repository.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

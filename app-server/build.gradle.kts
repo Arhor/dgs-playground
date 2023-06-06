@@ -92,6 +92,7 @@ tasks {
             freeCompilerArgs = listOf(
                 "-Xjsr305=strict",
                 "-Xjvm-default=all",
+                "-Xcontext-receivers",
             )
         }
     }
@@ -109,7 +110,7 @@ tasks {
         language = "kotlin"
         packageName = "com.github.mburyshynets.dgs.generated.graphql"
         typeMapping = mutableMapOf(
-            "Settings" to "java.util.EnumSet<com.github.mburyshynets.dgs.data.model.Setting>",
+            "Settings" to "java.util.EnumSet<com.github.mburyshynets.dgs.features.user.entity.Setting>",
             "Object" to "Map<String, Any>",
         )
     }

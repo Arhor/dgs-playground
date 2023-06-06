@@ -3,9 +3,9 @@
 //import com.github.mburyshynets.dgs.config.ConfigureAsyncTasks
 //import com.github.mburyshynets.dgs.generated.graphql.types.Post
 //import com.github.mburyshynets.dgs.generated.graphql.types.User
-//import com.github.mburyshynets.dgs.service.PostService
-//import com.github.mburyshynets.dgs.service.UserService
-//import com.github.mburyshynets.dgs.web.graphql.loader.UserPostsBatchLoader
+//import com.github.mburyshynets.dgs.features.forum.PostService
+//import com.github.mburyshynets.dgs.features.user.UserService
+//import com.github.mburyshynets.dgs.features.forum.graphql.loader.UserPostsBatchLoader
 //import com.netflix.graphql.dgs.DgsQueryExecutor
 //import com.ninjasquad.springmockk.MockkBean
 //import io.mockk.every

@@ -3,8 +3,8 @@ package com.github.mburyshynets.dgs.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.mburyshynets.dgs.features.extradata.entity.converter.JsonReadingConverter
 import com.github.mburyshynets.dgs.features.extradata.entity.converter.JsonWritingConverter
-import com.github.mburyshynets.dgs.data.converter.SettingsReadingConverter
-import com.github.mburyshynets.dgs.data.converter.SettingsWritingConverter
+import com.github.mburyshynets.dgs.features.user.entity.converter.SettingsReadingConverter
+import com.github.mburyshynets.dgs.features.user.entity.converter.SettingsWritingConverter
 import org.springframework.boot.autoconfigure.flyway.FlywayConfigurationCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,7 +18,13 @@ import java.util.Optional
 import java.util.function.Supplier
 
 @Configuration(proxyBeanMethods = false)
-@EnableJdbcRepositories("com.github.mburyshynets.dgs.data.repository")
+@EnableJdbcRepositories(
+    basePackages = [
+        "com.github.mburyshynets.dgs.features.extradata.repository",
+        "com.github.mburyshynets.dgs.features.forum.repository",
+        "com.github.mburyshynets.dgs.features.user.repository",
+    ]
+)
 @EnableJdbcAuditing(modifyOnCreate = false, dateTimeProviderRef = "currentDateTimeProvider")
 @EnableTransactionManagement
 class ConfigureDatabase(private val objectMapper: ObjectMapper) : AbstractJdbcConfiguration() {
