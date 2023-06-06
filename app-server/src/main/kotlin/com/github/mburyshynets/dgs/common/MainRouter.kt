@@ -25,7 +25,7 @@ class MainRouter(currentDateTimeSupplier: Supplier<LocalDateTime>) : RouterFunct
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(
                 mapOf(
-                    "requestId" to CurrentRequestContext.getRequestId(),
+                    "requestId" to CurrentRequestContext.requestId,
                     "timestamp" to currentDateTimeSupplier.get(),
                     "message" to e.message,
                 )

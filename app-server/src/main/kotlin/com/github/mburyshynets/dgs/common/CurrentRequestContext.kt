@@ -24,13 +24,10 @@ data class CurrentRequestContext(val requestId: UUID) {
 
             context as CurrentRequestContext
         } catch (e: IllegalStateException) {
-            log.trace("Cannot get CurrentRequestContext instance from the request attributes", e)
+            log.debug("Cannot get CurrentRequestContext instance from the request attributes", e)
             null
         }
 
-        fun getRequestId(): String {
-            return get()?.requestId?.toString()
-                ?: "UNKNOWN"
-        }
+        val requestId: String get() = get()?.requestId?.toString() ?: "UNKNOWN"
     }
 }
