@@ -10,10 +10,11 @@ import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.web.servlet.function.ServerRequest
 import java.net.URI
+import java.time.LocalDateTime
 
 internal class MainRouterTest {
 
-    private val mainRouter: MainRouter = MainRouter()
+    private val mainRouter: MainRouter = MainRouter { LocalDateTime.now() }
 
     @Test
     fun `should have handler function returning expected status for the given HTTP request method and URI`() {
