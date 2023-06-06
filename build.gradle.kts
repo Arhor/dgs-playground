@@ -6,9 +6,10 @@ plugins {
 dependencies {
     constraints {
         api("com.google.code.findbugs:jsr305:${property("app.version.findbugs-jsr305")}")
+        api("com.ninja-squad:springmockk:${property("app.version.spring-mockk")}")
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${property("app.version.kotlin-coroutines")}")
         api("org.mapstruct:mapstruct-processor:${property("app.version.mapstruct")}")
         api("org.mapstruct:mapstruct:${property("app.version.mapstruct")}")
-        api("com.ninja-squad:springmockk:${property("app.version.spring-mockk")}")
     }
 }
 

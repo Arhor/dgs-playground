@@ -19,7 +19,7 @@ class MainRouter(currentDateTimeSupplier: Supplier<LocalDateTime>) : RouterFunct
     }
 
     onError<Throwable> { e, _ ->
-        logger.error("Unhandled exception. Consider appropriate exception handler", e)
+        logger.error("An exception occurred.", e)
 
         ServerResponse
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
