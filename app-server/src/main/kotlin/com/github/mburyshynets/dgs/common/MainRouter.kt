@@ -1,14 +1,16 @@
 package com.github.mburyshynets.dgs.common
 
-import com.github.mburyshynets.dgs.GlobalExceptionHandler
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.function.RouterFunction
 import org.springframework.web.servlet.function.ServerResponse
 import org.springframework.web.servlet.function.router
+import java.time.LocalDateTime
+import java.util.function.Supplier
 
 @Component
-class MainRouter(private val errorHandler: GlobalExceptionHandler) : RouterFunction<ServerResponse> by router({
+class MainRouter(currentDateTimeSupplier: Supplier<LocalDateTime>) : RouterFunction<ServerResponse> by router({
 
     GET(pattern = "/api/health") {
         ServerResponse
@@ -17,10 +19,20 @@ class MainRouter(private val errorHandler: GlobalExceptionHandler) : RouterFunct
     }
 
     onError<Throwable> { e, _ ->
-        errorHandler.handleDefault(e).let {
-            ServerResponse
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(it)
-        }
+        logger.error("Unhandled exception. Consider appropriate exception handler", e)
+
+        ServerResponse
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(
+                mapOf(
+                    "requestId" to CurrentRequestContext.getRequestId(),
+                    "timestamp" to currentDateTimeSupplier.get(),
+                    "message" to e.message,
+                )
+            )
     }
-})
+}) {
+    companion object {
+        private val logger = LoggerFactory.getLogger(MainRouter::class.java)
+    }
+}
