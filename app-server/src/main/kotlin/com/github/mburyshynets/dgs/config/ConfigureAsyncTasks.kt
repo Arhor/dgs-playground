@@ -35,7 +35,6 @@ class ConfigureAsyncTasks : AsyncConfigurer {
 
     @Bean
     fun applicationDispatcher(applicationTaskExecutor: Executor): CoroutineDispatcher {
-        // TODO: is it working?
         return applicationTaskExecutor.asCoroutineDispatcher()
     }
 
