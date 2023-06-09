@@ -19,3 +19,4 @@ rootProject.name = "dgs-playground"
 
 include(":app-client")
 include(":app-server")
+include(":services:apollo-gateway")
